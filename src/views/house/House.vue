@@ -6,10 +6,10 @@
       <el-divider></el-divider>
       <el-form ref="form" :model="form" :rules="rules">
         <el-form-item label="详细地址：" prop="add">
-          <el-input v-model="form.add" clearable></el-input>
+          <el-input v-model.trim="form.add" clearable></el-input>
         </el-form-item>
         <el-form-item label="房屋面积：" prop="square">
-          <el-input v-model="form.square" clearable type="number">
+          <el-input v-model.trim="form.square" clearable type="number">
             <template slot="append">m<sup>2</sup></template>
           </el-input>
         </el-form-item>
@@ -20,7 +20,7 @@
             show-word-limit
             :autosize="{ minRows: 2, maxRows: 4 }"
             placeholder="请输入内容"
-            v-model="form.des"
+            v-model.trim="form.des"
           >
           </el-input>
         </el-form-item>
@@ -31,14 +31,30 @@
         </el-form-item>
         <el-form-item label="房屋类型：" prop="type">
           <el-input
-            v-model="form.type"
+            v-model.trim="form.type"
             clearable
             placeholder="如：三室一厅一卫"
           ></el-input>
         </el-form-item>
-        <el-button type="success" icon="el-icon-check" @click="save"
-          >发布</el-button
-        >
+        <el-form-item label="房屋照片：" prop="pic">
+          <el-upload
+            class="upload"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或<em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">
+              只能上传jpg/png文件，且不超过500kb
+            </div>
+          </el-upload>
+        </el-form-item>
+        <el-button type="success" icon="el-icon-check" @click="save">
+          发布
+        </el-button>
       </el-form>
     </div>
   </div>
@@ -64,6 +80,7 @@ export default {
         des: "",
         price: "",
         type: "",
+        pic: ""
       },
       rules: {
         add: [{ required: true, message: "请输入地址", trigger: "blur" }],
@@ -77,6 +94,7 @@ export default {
           { validator: over },
         ],
         type: [{ required: true, message: "请输入房屋类型", trigger: "blur" }],
+        pic: [{required: true}]
       },
     };
   },
@@ -85,6 +103,7 @@ export default {
   },
   methods: {
     save() {
+      console.log(this.form);
       this.form.userid = this.$store.state.id;
       addHouses(this.form)
         .then((res) => {

@@ -5,7 +5,7 @@
       <el-form ref="form" :model="form" label-width="80px" :rules="rules">
         <el-form-item label="用户名：" prop="name">
           <el-input
-            v-model="form.name"
+            v-model.trim="form.name"
             clearable
             placeholder="请输入用户名"
             prefix-icon="el-icon-search"
@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item label="密码：" prop="pwd">
           <el-input
-            v-model="form.pwd"
+            v-model.trim="form.pwd"
             show-password
             prefix-icon="el-icon-lock"
             placeholder="请输入密码"
