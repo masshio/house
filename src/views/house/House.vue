@@ -39,18 +39,25 @@
         <el-form-item label="房屋照片：" prop="pic">
           <el-upload
             class="upload"
-            drag
-            action="https://jsonplaceholder.typicode.com/posts/"
-            multiple
+            ref="upload"
+            action="111"
+            list-type="picture-card"
+            :auto-upload="false"
+            :file-list="fileList"
+            :limit="limit"
+            :http-request="handleUpload"
           >
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">
+            <!-- action="https://jsonplaceholder.typicode.com/posts/" -->
+            <!-- <i class="el-icon-upload"></i> -->
+            <i class="el-icon-plus"></i>
+            <!-- <div class="el-upload__text">
               将文件拖到此处，或<em>点击上传</em>
-            </div>
+            </div> -->
             <div class="el-upload__tip" slot="tip">
               只能上传jpg/png文件，且不超过500kb
             </div>
           </el-upload>
+          <!-- <el-input type="file" v-model="form.pic" name="file"></el-input> -->
         </el-form-item>
         <el-button type="success" icon="el-icon-check" @click="save">
           发布
@@ -61,7 +68,7 @@
 </template>
 
 <script>
-import { addHouses } from "@/api/house";
+import { addHouses, uploadImg } from "@/api/house";
 import NavBar from "@/components/navbar/NavBar.vue";
 export default {
   name: "House",
@@ -80,7 +87,13 @@ export default {
         des: "",
         price: "",
         type: "",
-        pic: ""
+        pic: "",
+      },
+      limit: 1,
+      fileList: [],
+      headers: {
+        "content-type": false,
+        token: this.$store.state.token,
       },
       rules: {
         add: [{ required: true, message: "请输入地址", trigger: "blur" }],
@@ -94,7 +107,7 @@ export default {
           { validator: over },
         ],
         type: [{ required: true, message: "请输入房屋类型", trigger: "blur" }],
-        pic: [{required: true}]
+        pic: [{ required: true, message: "请上传房屋图片", trigger: "blur" }],
       },
     };
   },
@@ -102,23 +115,36 @@ export default {
     NavBar,
   },
   methods: {
-    save() {
-      console.log(this.form);
+    handleUpload(raw) {
+      let fileData = new FormData();
       this.form.userid = this.$store.state.id;
-      addHouses(this.form)
-        .then((res) => {
-          this.$message({
-            type: "success",
-            message: "发布成功,请查看个人信息是否填写完全",
-          });
-          this.$refs.form.resetFields();
-        })
-        .catch((err) => {
-          this.$message({
-            type: "error",
-            message: "发布失败",
-          });
-        });
+      this.form.pic = 'sad'
+      fileData.append("file", raw.file);
+      Object.keys(this.form).forEach((key) => {
+        fileData.append(key, this.form[key]);
+      });
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          console.log(this.form.userid);
+          addHouses(fileData)
+            .then((res) => {
+              this.$message({
+                type: "success",
+                message: "发布成功,请查看个人信息是否填写完全",
+              });
+              this.$refs.form.resetFields();
+            })
+            .catch((err) => {
+              this.$message({
+                type: "error",
+                message: "发布失败",
+              });
+            });
+        }
+      });
+    },
+    save() {
+      this.$refs.upload.submit();
     },
   },
 };
@@ -127,10 +153,9 @@ export default {
 #house-form {
   width: 40vw;
   position: relative;
-  margin: auto;
+  margin: 70px auto;
   left: 0;
   right: 0;
-  margin-top: 100px;
 }
 h2 {
   font-size: 30px;

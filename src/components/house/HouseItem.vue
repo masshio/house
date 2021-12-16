@@ -2,6 +2,7 @@
   <div id="item-wrap">
     <!-- <img src="" alt=""> -->
     <div class="title" @click="toDetail">{{house.h_des}}</div>
+    <img :src="'http://localhost:3000/' + house.h_pic" alt="">
     <div class="addr">
       {{house.h_add}}
     </div>

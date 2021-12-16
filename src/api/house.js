@@ -2,7 +2,7 @@ import { request } from './request'
 
 export function getHouses(parameter) {
     return request({
-        url: '/getHouses',
+        url: '/house/getHouses',
         method: 'get',
         params: parameter,
         headers: {
@@ -12,7 +12,7 @@ export function getHouses(parameter) {
 }
 export function searchAdd(parameter) {
     return request({
-        url: '/searchAdd',
+        url: '/house/searchAdd',
         method: 'get',
         params: parameter,
         headers: {
@@ -22,7 +22,7 @@ export function searchAdd(parameter) {
 }
 export function getHousesById(parameter) {
     return request({
-        url: '/getHousesById',
+        url: '/house/getHousesById',
         method: 'get',
         params: parameter,
         headers: {
@@ -33,7 +33,7 @@ export function getHousesById(parameter) {
 
 export function getMessageById(parameter) {
     return request({
-        url: '/user/getMessageById',
+        url: '/house/user/getMessageById',
         method: 'get',
         params: parameter,
         headers: {
@@ -41,13 +41,23 @@ export function getMessageById(parameter) {
         }
     })
 }
-
-export function addHouses(parameter) {
+export function uploadImg(parameter) {
     return request({
-        url: '/addHouses',
+        url: '/house/uploadImg',
         method: 'post',
         data: parameter,
         headers: {
+            'content-type': 'multipart/form-data',
+        }
+    })
+}
+export function addHouses(parameter) {
+    return request({
+        url: '/house/addHouses',
+        method: 'post',
+        data: parameter,
+        headers: {
+            // 'content-type': 'multipart/form-data',
             'content-type': 'application/json',
         }
     })
@@ -55,7 +65,7 @@ export function addHouses(parameter) {
 
 export function getOwnHouses(parameter) {
     return request({
-        url: '/getOwnHouses',
+        url: '/house/getOwnHouses',
         method: 'get',
         params: parameter,
         headers: {
@@ -66,7 +76,7 @@ export function getOwnHouses(parameter) {
 
 export function deleteHouses(parameter) {
     return request({
-        url: '/deleteHouses',
+        url: '/house/deleteHouses',
         method: 'post',
         data: parameter,
         headers: {
@@ -77,7 +87,7 @@ export function deleteHouses(parameter) {
 
 export function updateHouses(parameter) {
     return request({
-        url: '/updateHouses',
+        url: '/house/updateHouses',
         method: 'post',
         data: parameter,
         headers: {
@@ -87,7 +97,7 @@ export function updateHouses(parameter) {
 }
 export function housePrice(parameter) {
     return request({
-        url: '/housePrice',
+        url: '/house/housePrice',
         method: 'get',
         params: parameter,
         headers: {
