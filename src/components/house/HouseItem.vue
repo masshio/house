@@ -1,8 +1,8 @@
 <template>
   <div id="item-wrap">
     <!-- <img src="" alt=""> -->
+    <img :src="imgUrl" class="img">
     <div class="title" @click="toDetail">{{house.h_des}}</div>
-    <img :src="'http://localhost:3000/' + house.h_pic" alt="">
     <div class="addr">
       {{house.h_add}}
     </div>
@@ -20,6 +20,11 @@ export default {
   name: "HouseItem",
   props: {
     house: Object
+  },
+  computed: {
+    imgUrl() {
+      return 'http://localhost:3000/' + this.house.h_pic
+    }
   },
   methods: {
     toDetail() {
@@ -41,6 +46,12 @@ export default {
     background: #eee;
     // transform: scale(1.05);
     transform: translate(2px, 2px);
+  }
+  .img {
+    width: 110px; 
+    height: 110px;
+    float: left;
+    margin-right: 20px
   }
   .title {
     font-size: 30px;

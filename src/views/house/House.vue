@@ -47,17 +47,11 @@
             :limit="limit"
             :http-request="handleUpload"
           >
-            <!-- action="https://jsonplaceholder.typicode.com/posts/" -->
-            <!-- <i class="el-icon-upload"></i> -->
             <i class="el-icon-plus"></i>
-            <!-- <div class="el-upload__text">
-              将文件拖到此处，或<em>点击上传</em>
-            </div> -->
             <div class="el-upload__tip" slot="tip">
-              只能上传jpg/png文件，且不超过500kb
+              只能上传一张jpg/png文件，且不超过500kb
             </div>
           </el-upload>
-          <!-- <el-input type="file" v-model="form.pic" name="file"></el-input> -->
         </el-form-item>
         <el-button type="success" icon="el-icon-check" @click="save">
           发布
@@ -125,7 +119,6 @@ export default {
       });
       this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log(this.form.userid);
           addHouses(fileData)
             .then((res) => {
               this.$message({
