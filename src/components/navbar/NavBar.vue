@@ -46,19 +46,18 @@ export default {
 </script>
 <style scoped lang="scss">
 #main {
-  height: 40px;
-  // background: #ccc;
-  border-bottom: 1px solid #ccc;
+  height: 50px;
+  box-shadow: 0 2px 2px #eee;
   .left {
     float: left;
     margin-left: 20vw;
     display: flex;
     width: 200px;
-    line-height: 40px;
+    line-height: 50px;
     text-align: center;
     justify-content: space-between;
     list-style: none;
-    font-size: 14px;
+    font-size: 15px;
   }
   li {
     cursor: pointer;
@@ -74,10 +73,11 @@ export default {
 .logout {
   float: right;
   margin-right: 20vw;
-  line-height: 40px;
+  line-height: 50px;
   border: none;
   background: none;
   cursor: pointer;
+  font-size: 15px;
   &:hover {
     color: #cc0000;
   }

@@ -76,7 +76,7 @@ export default {
 .el-main {
   color: #333;
   text-align: center;
-  padding: 60px;
+  padding: 30px;
 }
 
 body > .el-container {

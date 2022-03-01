@@ -33,7 +33,7 @@ export function getHousesById(parameter) {
 
 export function getMessageById(parameter) {
     return request({
-        url: '/house/user/getMessageById',
+        url: '/user/getMessageById',
         method: 'get',
         params: parameter,
         headers: {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from '@/store'
+import router from '@/router'
 export function request(config) {
     const resolve = axios.create({
         baseURL: 'http://127.0.0.1:3000',
@@ -17,8 +18,13 @@ export function request(config) {
     })
 
     resolve.interceptors.response.use(res => {
+        if(res.data.code == 401) {
+            store.commit('LOGOUT')
+            router.push('/')
+        }
         return res.data;
     }, err => {
+        console.log(err);
         return Promise.reject(err)
     })
 

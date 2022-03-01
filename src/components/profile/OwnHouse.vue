@@ -99,13 +99,27 @@
             class="upload"
             ref="upload"
             action="111"
-            list-type="picture-card"
             :auto-upload="false"
-            :file-list="fileList"
             :limit="limit"
+            list-type="picture-card"
             :http-request="handleUpload"
+            :file-list="fileList"
+            :on-change="handleChange"
+            :on-remove="handleChange"
           >
-            <i class="el-icon-plus"></i>
+            <!-- <img v-if="imgUrl" :src="imgUrl" alt="photoPath" width="86px" height="86px" />
+            <div v-else>
+              <a-icon :type="imgLoading ? 'loading' : 'plus'" />
+              <div class="ant-upload-text">上传</div>
+              <div class="ant-upload-desc">108x108</div>
+            </div> -->
+            <img
+              v-if="flag"
+              :src="'http://localhost:3000/' + form.h_pic"
+              class="uppic"
+              alt=""
+            />
+            <i v-else class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip">
               只能上传一张jpg/png文件，且不超过500kb
             </div>
@@ -136,6 +150,7 @@ export default {
       total: 0,
       tableDate: [],
       limit: 1,
+      flag: true,
       fileList: [],
       dialogFormVisible: false,
       form: {},
@@ -153,6 +168,7 @@ export default {
       formLabelWidth: "120px",
       isshow: false,
       total: 0,
+      fileData: new FormData()
     };
   },
   computed: {
@@ -175,13 +191,18 @@ export default {
         this.isshow = true;
       });
     },
+    handleChange() {
+      console.log("handleChange");
+      this.flag = !this.flag;
+    },
     handleCancel() {
       this.dialogFormVisible = false;
       this.fileList = [];
+      this.flag = true;
     },
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
-      this.fileList = [{ url: "http://localhost:3000/" + row.h_pic }];
+      // this.fileList = [{ url: "http://localhost:3000/" + row.h_pic }];
       this.dialogFormVisible = true;
     },
     handleDelete(row) {
@@ -204,30 +225,18 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "取消删除",
           });
         });
     },
     handleConfirm() {
       this.$refs.upload.submit();
-      // updateHouses(this.form).then((res) => {
-      //   this.getHouses();
-      //   this.dialogFormVisible = false;
-      // });
-    },
-    handleUpload(raw) {
-      console.log(raw);
-      let fileData = new FormData();
-      this.form.userid = this.$store.state.id;
-      this.form.pic = "sad";
-      fileData.append("file", raw.file);
       Object.keys(this.form).forEach((key) => {
-        fileData.append(key, this.form[key]);
+        this.fileData.append(key, this.form[key]);
       });
       this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log(this.form.userid);
-          updateHouses(fileData)
+          updateHouses(this.fileData)
             .then((res) => {
               this.$message({
                 type: "success",
@@ -236,21 +245,28 @@ export default {
               this.getHouses();
               this.dialogFormVisible = false;
               this.fileList = [];
+              this.flag = true;
+              this.fileData = new FormData();
             })
             .catch((err) => {
               this.$message({
                 type: "error",
                 message: "修改失败",
               });
+              this.flag = true;
             });
         }
       });
     },
-    change() {},
+    handleUpload(raw) {
+      this.form.userid = this.$store.state.id;
+      this.form.pic = "sad";
+      this.fileData.append("file", raw.file);
+    },
   },
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 #table {
   width: 60vw;
   margin-left: 30vw;
@@ -277,4 +293,13 @@ export default {
   margin-right: 12px;
   font-size: 32px;
 }
+.uppic {
+  width: 146px;
+  height: 146px;
+}
+// .el-upload {
+//   width: 146px;
+//   height: 146px;
+//   border: 1px dashed #eee;
+// }
 </style>

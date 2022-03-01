@@ -18,7 +18,7 @@
       </el-descriptions>
       <el-descriptions title="屋主信息" class="user">
         <el-descriptions-item label="名称">
-          {{ name }}
+          {{ user.r_name }}
         </el-descriptions-item>
         <el-descriptions-item label="手机号">
           {{ user.u_phone }}
@@ -66,12 +66,12 @@ export default {
     id() {
       return this.$route.params.id;
     },
-    name() {
-      return (
-        (this.user.r_name && this.user.r_name.substr(0, 1) + "先生") ||
-        this.user.u_name
-      );
-    },
+    // name() {
+    //   return (
+    //     (this.user.r_name && this.user.r_name.substr(0, 1) + "先生") ||
+    //     this.user.u_name
+    //   );
+    // },
   },
   components: {
     NavBar,
