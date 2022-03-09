@@ -19,6 +19,12 @@
       >
         个人中心
       </li>
+      <!-- <li
+        :class="{ active: this.$route.path === '/test' }"
+        @click="$router.push('/test')"
+      >
+        上传
+      </li> -->
     </ul>
     <button class="logout" @click="logout">退出登录</button>
   </div>
@@ -52,7 +58,7 @@ export default {
     float: left;
     margin-left: 20vw;
     display: flex;
-    width: 200px;
+    width: 240px;
     line-height: 50px;
     text-align: center;
     justify-content: space-between;

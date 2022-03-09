@@ -48,13 +48,13 @@ export default {
     transform: translate(2px, 2px);
   }
   .img {
-    width: 110px; 
+    width: 147px; 
     height: 110px;
     float: left;
     margin-right: 20px
   }
   .title {
-    font-size: 30px;
+    font-size: 25px;
     cursor: pointer;
     display: inline-block;
     width: 40vw;

@@ -96,7 +96,7 @@
           prop="h_pic"
         >
           <el-upload
-            class="upload"
+            :class="{hide: hideUpload}"
             ref="upload"
             action="111"
             :auto-upload="false"
@@ -154,6 +154,7 @@ export default {
       fileList: [],
       dialogFormVisible: false,
       form: {},
+      hideUpload: false,
       rules: {
         h_square: [
           { validator: over },
@@ -191,14 +192,16 @@ export default {
         this.isshow = true;
       });
     },
-    handleChange() {
-      console.log("handleChange");
+    handleChange(file, fileList) {
+      console.log("handleChange", fileList);
       this.flag = !this.flag;
+      this.hideUpload = fileList.length >= 1;
     },
     handleCancel() {
       this.dialogFormVisible = false;
       this.fileList = [];
       this.flag = true;
+      this.hideUpload = false;
     },
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
@@ -247,6 +250,7 @@ export default {
               this.fileList = [];
               this.flag = true;
               this.fileData = new FormData();
+              this.hideUpload = true;
             })
             .catch((err) => {
               this.$message({
@@ -259,7 +263,7 @@ export default {
       });
     },
     handleUpload(raw) {
-      this.form.userid = this.$store.state.id;
+      // this.form.userid = this.$store.state.id;
       this.form.pic = "sad";
       this.fileData.append("file", raw.file);
     },
@@ -296,6 +300,9 @@ export default {
 .uppic {
   width: 146px;
   height: 146px;
+}
+.hide .el-upload--picture-card {
+  display: none;
 }
 // .el-upload {
 //   width: 146px;

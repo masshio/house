@@ -69,6 +69,14 @@ const routes = [
     component: () => import('@/views/detail/Detail')
   },
   {
+    path: '/test',
+    name: 'Test',
+    meta: {
+      title: '测试'
+    },
+    component: () => import('@/views/house/Test')
+  },
+  {
     path: '/manage',
     meta: {
       title: '后台管理'

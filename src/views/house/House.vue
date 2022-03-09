@@ -38,14 +38,15 @@
         </el-form-item>
         <el-form-item label="房屋照片：" prop="pic">
           <el-upload
-            class="upload"
+            :class="{ hide: hideUpload }"
             ref="upload"
-            action="111"
+            action="http://127.0.0.1:3000/house/uploadImg"
+            :headers="headers"
             list-type="picture-card"
-            :auto-upload="false"
-            :file-list="fileList"
             :limit="limit"
-            :http-request="handleUpload"
+            :on-change="handleChange"
+            :on-remove="handleRemove"
+            :on-success="handleSuccess"
           >
             <i class="el-icon-plus"></i>
             <div class="el-upload__tip" slot="tip">
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import { addHouses, uploadImg } from "@/api/house";
+import { addHouses } from "@/api/house";
 import NavBar from "@/components/navbar/NavBar.vue";
 export default {
   name: "House",
@@ -84,9 +85,8 @@ export default {
         pic: "",
       },
       limit: 1,
-      fileList: [],
+      hideUpload: false,
       headers: {
-        "content-type": false,
         token: this.$store.state.token,
       },
       rules: {
@@ -109,18 +109,12 @@ export default {
     NavBar,
   },
   methods: {
-    handleUpload(raw) {
-      let fileData = new FormData();
-      this.form.userid = this.$store.state.id;
-      this.form.pic = 'sad'
-      fileData.append("file", raw.file);
-      Object.keys(this.form).forEach((key) => {
-        fileData.append(key, this.form[key]);
-      });
+    save() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          addHouses(fileData)
-            .then((res) => {
+          this.form.userid = this.$store.state.id;
+          addHouses(this.form)
+            .then( _ => {
               this.$message({
                 type: "success",
                 message: "发布成功,请查看个人信息是否填写完全",
@@ -130,19 +124,26 @@ export default {
             .catch((err) => {
               this.$message({
                 type: "error",
-                message: "发布失败",
+                message: err,
               });
             });
         }
       });
     },
-    save() {
-      this.$refs.upload.submit();
+    handleChange(file, fileList) {
+      this.hideUpload = fileList.length >= 1;
+    },
+    handleRemove(file, fileList) {
+      this.form.pic = ''
+      this.hideUpload = fileList.length >= 1;
+    },
+    handleSuccess(res, file, fileList) {
+      this.form.pic = res.pic;
     },
   },
 };
 </script>
-<style scoped>
+<style>
 #house-form {
   width: 40vw;
   position: relative;
@@ -153,5 +154,8 @@ export default {
 h2 {
   font-size: 30px;
   margin-bottom: 50px;
+}
+.hide .el-upload--picture-card {
+  display: none;
 }
 </style>
