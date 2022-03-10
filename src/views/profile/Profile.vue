@@ -22,6 +22,12 @@
         >
           房屋管理
         </li>
+        <li
+          :class="{ acitve: current == 'examine' }"
+          @click="current = 'examine'"
+        >
+          审核中房屋
+        </li>
       </ul>
     </aside>
     <component :is="current"></component>
@@ -29,10 +35,10 @@
 </template>
 
 <script>
-import Message from "@/components/profile/Message";
-import ChangePass from "@/components/profile/ChangePass";
+import Message from "./childComps/Message";
+import ChangePass from "./childComps/ChangePass";
 import NavBar from "@/components/navbar/NavBar";
-import OwnHouse from '@/components/profile/OwnHouse'
+import OwnHouse from './childComps/OwnHouse'
 export default {
   name: "Profile",
   data() {
@@ -57,7 +63,7 @@ export default {
 .aside {
   position: absolute;
   width: 20vw;
-  height: 200px;
+  height: 250px;
   top: 10vh;
   left: 10vh;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

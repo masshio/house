@@ -30,13 +30,3 @@ export function updateUser(parameter) {
         }
     })
 }
-export function userAge(parameter) {
-    return request({
-        url: '/user/userAge',
-        method: 'get',
-        data: parameter,
-        headers: {
-            'content-type': 'application/json',
-        }
-    })
-}

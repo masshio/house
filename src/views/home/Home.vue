@@ -1,27 +1,29 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-    <div class="input-addr">
-      <span>地址：</span>
-      <el-input
-        placeholder="查询地址"
-        v-model="inputAddr"
-        prefix-icon="el-icon-search"
-        @keyup.enter.native="toOne"
-      >
-        <el-button slot="append" icon="el-icon-search" @click="toOne"></el-button>
-      </el-input>
-    </div>
-    <house :list="list"></house>
-    <div class="pagination" v-show="isshow">
-      <el-pagination
-        layout="total, prev, pager, next"
-        background
-        :total="total"
-        :current-page.sync="page"
-        @current-change="search"
-      >
-      </el-pagination>
+    <div class="home-list">
+      <div class="input-addr">
+        <span>地址：</span>
+        <el-input
+          placeholder="查询地址"
+          v-model="inputAddr"
+          prefix-icon="el-icon-search"
+          @keyup.enter.native="toOne"
+        >
+          <el-button slot="append" icon="el-icon-search" @click="toOne"></el-button>
+        </el-input>
+      </div>
+      <house :list="list"></house>
+      <div class="pagination" v-show="isshow">
+        <el-pagination
+          layout="total, prev, pager, next"
+          background
+          :total="total"
+          :current-page.sync="page"
+          @current-change="search"
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -85,6 +87,10 @@ export default {
 };
 </script>
 <style scoped>
+.home-list {
+  overflow: hidden;
+  /* background: rgba(0, 0, 0, .04); */
+}
 .pagination {
   width: 60vw;
   margin: 20px 20vw;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="house-list">
       <house-item v-for="item in list" :key="item.id" :house="item"></house-item>
   </div>
 </template>
@@ -21,4 +21,8 @@ export default {
 
 </script>
 <style scoped>
+.house-list {
+    /* background: #fff; */
+
+}
 </style>

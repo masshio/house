@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import { userAge } from "@/api/user";
-import { housePrice } from '@/api/house'
+import { userAge, housePrice } from '@/api/manage'
 export default {
   data() {
     return {

@@ -98,6 +98,11 @@ const routes = [
         component: () => import('@/views/admin/childComps/ManageHouse')
       },
       {
+        path: 'examine',
+        name: 'Examine',
+        component: () => import('@/views/admin/childComps/Examine')
+      },
+      {
         path: 'statistics',
         name: 'Statistics',
         component: () => import('@/views/admin/childComps/Statistics')

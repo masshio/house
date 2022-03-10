@@ -1,10 +1,13 @@
 <template>
   <div>
-    <el-container style="height: 100vh;">
+    <el-container style="height: 100vh">
       <el-header style="text-align: right; font-size: 16px">
         <!-- <el-avatar icon="el-icon-user-solid"></el-avatar> -->
         <el-dropdown @command="handleCommand">
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <i
+            class="el-icon-setting"
+            style="margin-right: 15px; color: #fff"
+          ></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -20,10 +23,16 @@
             active-text-color="#ffd04b"
             router
           >
-            <el-menu-item index="ManageHouse">
-              <i class="el-icon-house"></i>
+            <el-submenu index="ManageHouse">
+              <template slot="title">
+                <i class="el-icon-house"></i>
               <span slot="title">房屋管理</span>
-            </el-menu-item>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="ManageHouse">已发布房屋</el-menu-item>
+                <el-menu-item index="Examine">待审核房屋</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
             <el-menu-item index="ManageUser">
               <i class="el-icon-user"></i>
               <span slot="title">用户管理</span>
@@ -46,16 +55,18 @@
 export default {
   methods: {
     handleCommand() {
-      this.$store.commit('LOGOUT');
-      this.$router.replace('/');
-    }
-  }
+      this.$store.commit("LOGOUT");
+      this.$router.replace("/");
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
 .el-header {
-  background-color: #fff;
-  color: #333;
+  // background-color: #fff;
+  // color: #333;
+  color: #fff;
+  background-color: #545c64;
   text-align: center;
   line-height: 60px;
   display: flex;

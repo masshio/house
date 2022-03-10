@@ -1,5 +1,6 @@
 import { request } from './request'
 
+// 获取已审核房屋
 export function getHouses(parameter) {
     return request({
         url: '/house/getHouses',
@@ -10,6 +11,8 @@ export function getHouses(parameter) {
         }
     })
 }
+
+// 首页搜索地址
 export function searchAdd(parameter) {
     return request({
         url: '/house/searchAdd',
@@ -20,6 +23,8 @@ export function searchAdd(parameter) {
         }
     })
 }
+
+// 通过id获取房屋信息
 export function getHousesById(parameter) {
     return request({
         url: '/house/getHousesById',
@@ -31,6 +36,7 @@ export function getHousesById(parameter) {
     })
 }
 
+// 获取用户信息
 export function getMessageById(parameter) {
     return request({
         url: '/user/getMessageById',
@@ -41,16 +47,8 @@ export function getMessageById(parameter) {
         }
     })
 }
-export function uploadImg(parameter) {
-    return request({
-        url: '/house/uploadImg',
-        method: 'post',
-        data: parameter,
-        headers: {
-            'content-type': 'multipart/form-data',
-        }
-    })
-}
+
+// 发布房屋信息
 export function addHouses(parameter) {
     return request({
         url: '/house/addHouses',
@@ -63,6 +61,7 @@ export function addHouses(parameter) {
     })
 }
 
+// 获取用户个人房屋
 export function getOwnHouses(parameter) {
     return request({
         url: '/house/getOwnHouses',
@@ -74,6 +73,7 @@ export function getOwnHouses(parameter) {
     })
 }
 
+// 删除房屋
 export function deleteHouses(parameter) {
     return request({
         url: '/house/deleteHouses',
@@ -85,6 +85,7 @@ export function deleteHouses(parameter) {
     })
 }
 
+// 更新房屋信息
 export function updateHouses(parameter) {
     return request({
         url: '/house/updateHouses',
@@ -95,13 +96,4 @@ export function updateHouses(parameter) {
         }
     })
 }
-export function housePrice(parameter) {
-    return request({
-        url: '/house/housePrice',
-        method: 'get',
-        params: parameter,
-        headers: {
-            'content-type': 'application/json',
-        }
-    })
-}
+
