@@ -95,6 +95,11 @@ export default {
   left: 0;
   right: 0;
   margin-top: 100px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  z-index: 100;
 }
 h2 {
   font-size: 35px;

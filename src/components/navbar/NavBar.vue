@@ -53,7 +53,10 @@ export default {
 <style scoped lang="scss">
 #main {
   height: 50px;
-  box-shadow: 0 2px 2px #eee;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 4%);
+  position: relative;
+  z-index: 1000;
+  background: #fff;
   .left {
     float: left;
     margin-left: 20vw;

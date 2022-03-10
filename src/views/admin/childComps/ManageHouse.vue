@@ -1,13 +1,13 @@
 <template>
   <div id="table">
     <el-table :data="tableDate" stripe>
-      <el-table-column prop="h_id" label="id"></el-table-column>
-      <el-table-column prop="h_add" label="地址"></el-table-column>
-      <el-table-column prop="h_des" label="描述"></el-table-column>
-      <el-table-column prop="h_price" label="月租"> </el-table-column>
-      <el-table-column prop="h_square" label="面积"> </el-table-column>
-      <el-table-column prop="h_type" label="房屋类型"> </el-table-column>
-      <el-table-column prop="u_id" label="屋主id"> </el-table-column>
+      <el-table-column prop="hid" label="id"></el-table-column>
+      <el-table-column prop="hadd" label="地址"></el-table-column>
+      <el-table-column prop="hdes" label="描述"></el-table-column>
+      <el-table-column prop="hprice" label="月租"> </el-table-column>
+      <el-table-column prop="hsquare" label="面积"> </el-table-column>
+      <el-table-column prop="htype" label="房屋类型"> </el-table-column>
+      <el-table-column prop="uid" label="屋主id"> </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleClick(scope.row)"
@@ -37,15 +37,15 @@
         <el-form-item
           label="详细地址"
           :label-width="formLabelWidth"
-          prop="h_add"
+          prop="hadd"
           :rules="[{ required: true, message: '请输入地址', trigger: 'blur' }]"
         >
-          <el-input v-model="form.h_add" autocomplete="off"></el-input>
+          <el-input v-model="form.hadd" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="描述"
           :label-width="formLabelWidth"
-          prop="h_des"
+          prop="hdes"
           :rules="[{ required: true, message: '请输入描述', trigger: 'blur' }]"
         >
           <el-input
@@ -54,23 +54,23 @@
             show-word-limit
             :autosize="{ minRows: 2, maxRows: 4 }"
             placeholder="请输入内容"
-            v-model="form.h_des"
+            v-model="form.hdes"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="月租" :label-width="formLabelWidth" prop="h_price">
-          <el-input type="number" v-model="form.h_price" autocomplete="off">
+        <el-form-item label="月租" :label-width="formLabelWidth" prop="hprice">
+          <el-input type="number" v-model="form.hprice" autocomplete="off">
             <template slot="append">元/月</template>
           </el-input>
         </el-form-item>
         <el-form-item
           label="面积"
           :label-width="formLabelWidth"
-          prop="h_square"
+          prop="hsquare"
         >
           <el-input
             type="number"
-            v-model.number="form.h_square"
+            v-model.number="form.hsquare"
             autocomplete="off"
           >
             <template slot="append">m<sup>2</sup></template>
@@ -79,12 +79,12 @@
         <el-form-item
           label="房屋类型"
           :label-width="formLabelWidth"
-          prop="h_type"
+          prop="htype"
           :rules="[
             { required: true, message: '请输入房屋类型', trigger: 'blur' },
           ]"
         >
-          <el-input v-model="form.h_type" autocomplete="off"></el-input>
+          <el-input v-model="form.htype" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -113,11 +113,11 @@ export default {
       dialogFormVisible: false,
       form: {},
       rules: {
-        h_square: [
+        hsquare: [
           { required: true, message: "请输入面积", trigger: "blur" },
           { validator: over },
         ],
-        h_price: [
+        hprice: [
           { required: true, message: "请输入月租价格", trigger: "blur" },
           { validator: over },
         ],
@@ -153,7 +153,7 @@ export default {
       })
         .then(() => {
           deleteHouses({
-            id: row.h_id,
+            id: row.hid,
           }).then(() => {
             this.getTable();
             this.$message({

@@ -2,15 +2,15 @@
   <div id="item-wrap">
     <!-- <img src="" alt=""> -->
     <img :src="imgUrl" class="img">
-    <div class="title" @click="toDetail">{{house.h_des}}</div>
+    <div class="title" @click="toDetail">{{house.hdes}}</div>
     <div class="addr">
-      {{house.h_add}}
+      {{house.hadd}}
     </div>
     <div>
-      <span>{{house.h_square}}m<sup>2</sup></span> / 
-      <span>{{house.h_type}}</span>
+      <span>{{house.hsquare}}m<sup>2</sup></span> / 
+      <span>{{house.htype}}</span>
     </div>
-    <div class="price">{{house.h_price}} <span>元/月</span> </div>
+    <div class="price">{{house.hprice}} <span>元/月</span> </div>
     <!-- <el-divider class="divider"></el-divider> -->
   </div>
 </template>
@@ -23,12 +23,12 @@ export default {
   },
   computed: {
     imgUrl() {
-      return 'http://localhost:3000/' + this.house.h_pic
+      return 'http://localhost:3000/' + this.house.hpic
     }
   },
   methods: {
     toDetail() {
-      this.$router.push('/detail/'+ this.house.h_id)
+      this.$router.push('/detail/'+ this.house.hid)
     }
   }
 };

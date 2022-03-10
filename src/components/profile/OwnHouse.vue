@@ -1,16 +1,16 @@
 <template>
   <div id="table">
     <el-table :data="tableDate" stripe>
-      <el-table-column prop="h_add" label="地址"></el-table-column>
-      <el-table-column prop="h_des" label="描述"></el-table-column>
-      <el-table-column prop="h_price" label="月租"> </el-table-column>
-      <el-table-column prop="h_square" label="面积"> </el-table-column>
-      <el-table-column prop="h_type" label="房屋类型"> </el-table-column>
+      <el-table-column prop="hadd" label="地址"></el-table-column>
+      <el-table-column prop="hdes" label="描述"></el-table-column>
+      <el-table-column prop="hprice" label="月租"> </el-table-column>
+      <el-table-column prop="hsquare" label="面积"> </el-table-column>
+      <el-table-column prop="htype" label="房屋类型"> </el-table-column>
       <el-table-column label="房屋图片">
         <template slot-scope="scope">
           <span class="title-img">
             <img
-              :src="'http://localhost:3000/' + scope.row.h_pic"
+              :src="'http://localhost:3000/' + scope.row.hpic"
               class="table-img"
             />
           </span>
@@ -45,15 +45,15 @@
         <el-form-item
           label="详细地址"
           :label-width="formLabelWidth"
-          prop="h_add"
+          prop="hadd"
           :rules="[{ required: true, message: '请输入地址', trigger: 'blur' }]"
         >
-          <el-input v-model="form.h_add" autocomplete="off"></el-input>
+          <el-input v-model="form.hadd" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="描述"
           :label-width="formLabelWidth"
-          prop="h_des"
+          prop="hdes"
           :rules="[{ required: true, message: '请输入描述', trigger: 'blur' }]"
         >
           <el-input
@@ -62,38 +62,38 @@
             show-word-limit
             :autosize="{ minRows: 2, maxRows: 4 }"
             placeholder="请输入内容"
-            v-model="form.h_des"
+            v-model="form.hdes"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="月租" :label-width="formLabelWidth" prop="h_price">
-          <el-input type="number" v-model="form.h_price" autocomplete="off">
+        <el-form-item label="月租" :label-width="formLabelWidth" prop="hprice">
+          <el-input type="number" v-model="form.hprice" autocomplete="off">
             <template slot="append">元/月</template>
           </el-input>
         </el-form-item>
         <el-form-item
           label="面积"
           :label-width="formLabelWidth"
-          prop="h_square"
+          prop="hsquare"
         >
-          <el-input type="number" v-model="form.h_square" autocomplete="off">
+          <el-input type="number" v-model="form.hsquare" autocomplete="off">
             <template slot="append">m<sup>2</sup></template>
           </el-input>
         </el-form-item>
         <el-form-item
           label="房屋类型"
           :label-width="formLabelWidth"
-          prop="h_type"
+          prop="htype"
           :rules="[
             { required: true, message: '请输入房屋类型', trigger: 'blur' },
           ]"
         >
-          <el-input v-model="form.h_type" autocomplete="off"></el-input>
+          <el-input v-model="form.htype" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="房屋图片"
           :label-width="formLabelWidth"
-          prop="h_pic"
+          prop="hpic"
         >
           <el-upload
             :class="{hide: hideUpload}"
@@ -115,7 +115,7 @@
             </div> -->
             <img
               v-if="flag"
-              :src="'http://localhost:3000/' + form.h_pic"
+              :src="'http://localhost:3000/' + form.hpic"
               class="uppic"
               alt=""
             />
@@ -156,15 +156,15 @@ export default {
       form: {},
       hideUpload: false,
       rules: {
-        h_square: [
+        hsquare: [
           { validator: over },
           { required: true, message: "请输入面积", trigger: "blur" },
         ],
-        h_price: [
+        hprice: [
           { validator: over },
           { required: true, message: "请输入月租价格", trigger: "blur" },
         ],
-        h_pic: [{ required: true, message: "请上传房屋图片", trigger: "blur" }],
+        hpic: [{ required: true, message: "请上传房屋图片", trigger: "blur" }],
       },
       formLabelWidth: "120px",
       isshow: false,
@@ -205,7 +205,7 @@ export default {
     },
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
-      // this.fileList = [{ url: "http://localhost:3000/" + row.h_pic }];
+      // this.fileList = [{ url: "http://localhost:3000/" + row.hpic }];
       this.dialogFormVisible = true;
     },
     handleDelete(row) {
@@ -216,7 +216,7 @@ export default {
       })
         .then(() => {
           deleteHouses({
-            id: row.h_id,
+            id: row.hid,
           }).then(() => {
             this.getHouses();
             this.$message({
@@ -276,6 +276,9 @@ export default {
   margin-left: 30vw;
   overflow: hidden;
   margin-top: 100px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
 }
 .pagination {
   width: 60vw;

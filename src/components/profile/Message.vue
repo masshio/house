@@ -16,9 +16,6 @@
           <el-radio label="女">女</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="地址：" prop="addr" required>
-        <el-input v-model="form.addr" clearable></el-input>
-      </el-form-item>
       <el-form-item label="电话号码：" prop="phone" required>
         <el-input v-model="form.phone" clearable></el-input>
       </el-form-item>
@@ -49,7 +46,6 @@ export default {
         rname: "",
         age: "",
         sex: "",
-        addr: "",
         email: "",
         phone: "",
       },
@@ -64,12 +60,11 @@ export default {
   created() {
     this.form.name = this.$store.state.name;
     getMessage({ name: this.form.name }).then((res) => {
-      this.form.rname = res.data["r_name"];
-      this.form.age = res.data["u_age"];
-      this.form.sex = res.data["u_sex"];
-      this.form.addr = res.data["u_add"];
-      this.form.email = res.data["u_email"];
-      this.form.phone = res.data["u_phone"];
+      this.form.rname = res.data["rname"];
+      this.form.age = res.data["uage"];
+      this.form.sex = res.data["usex"];
+      this.form.email = res.data["uemail"];
+      this.form.phone = res.data["uphone"];
     });
   },
   methods: {
@@ -92,5 +87,8 @@ export default {
   left: 0;
   right: 0;
   margin-top: 100px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
 }
 </style>

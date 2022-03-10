@@ -1,14 +1,14 @@
 <template>
   <div id="table">
     <el-table :data="tableDate" stripe>
-      <el-table-column prop="u_id" label="用户id"> </el-table-column>
-      <el-table-column prop="u_name" label="用户名"> </el-table-column>
-      <el-table-column prop="u_add" label="地址"></el-table-column>
-      <el-table-column prop="u_age" label="年龄"></el-table-column>
-      <el-table-column prop="u_email" label="邮箱"></el-table-column>
-      <el-table-column prop="r_name" label="真实姓名"> </el-table-column>
-      <el-table-column prop="u_phone" label="电话号码"> </el-table-column>
-      <el-table-column prop="u_sex" label="性别"> </el-table-column>
+      <el-table-column prop="uid" label="用户id"> </el-table-column>
+      <el-table-column prop="uname" label="用户名"> </el-table-column>
+      <el-table-column prop="uadd" label="地址"></el-table-column>
+      <el-table-column prop="uage" label="年龄"></el-table-column>
+      <el-table-column prop="uemail" label="邮箱"></el-table-column>
+      <el-table-column prop="rname" label="真实姓名"> </el-table-column>
+      <el-table-column prop="uphone" label="电话号码"> </el-table-column>
+      <el-table-column prop="usex" label="性别"> </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleClick(scope.row)"
@@ -36,15 +36,15 @@
     <el-dialog center title="用户信息" :visible.sync="dialogFormVisible">
       <el-form :model="form" ref="form" :rules="rules">
         <el-form-item label="id" :label-width="formLabelWidth">
-          <el-input v-model="form.u_id" disabled autocomplete="off"></el-input>
+          <el-input v-model="form.uid" disabled autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="用户名"
           :label-width="formLabelWidth"
-          prop="u_name"
+          prop="uname"
         >
           <el-input
-            v-model="form.u_name"
+            v-model="form.uname"
             disabled
             autocomplete="off"
           ></el-input>
@@ -52,23 +52,23 @@
         <el-form-item
           label="地址"
           :label-width="formLabelWidth"
-          prop="u_add"
+          prop="uadd"
           :rules="[{ required: true, message: '请输入地址', trigger: 'blur' }]"
         >
-          <el-input v-model="form.u_add"> </el-input>
+          <el-input v-model="form.uadd"> </el-input>
         </el-form-item>
         <el-form-item
           label="年龄"
           :label-width="formLabelWidth"
-          prop="u_age"
+          prop="uage"
         >
-          <el-input type="number" v-model="form.u_age" autocomplete="off">
+          <el-input type="number" v-model="form.uage" autocomplete="off">
           </el-input>
         </el-form-item>
         <el-form-item
           label="邮箱"
           :label-width="formLabelWidth"
-          prop="u_email"
+          prop="uemail"
           :rules="[
             { required: true, message: '请输入邮箱地址', trigger: 'blur' },
             {
@@ -78,28 +78,28 @@
             },
           ]"
         >
-          <el-input v-model="form.u_email" autocomplete="off"> </el-input>
+          <el-input v-model="form.uemail" autocomplete="off"> </el-input>
         </el-form-item>
         <el-form-item
           label="真实姓名"
           :label-width="formLabelWidth"
-          prop="r_name"
+          prop="rname"
           :rules="[{ required: true, message: '请输入姓名', trigger: 'blur' }]"
         >
-          <el-input v-model="form.r_name" autocomplete="off"> </el-input>
+          <el-input v-model="form.rname" autocomplete="off"> </el-input>
         </el-form-item>
         <el-form-item
           label="电话号码"
           :label-width="formLabelWidth"
-          prop="u_phone"
+          prop="uphone"
           :rules="[
             { required: true, message: '请输入电话号码', trigger: 'blur' },
           ]"
         >
-          <el-input v-model="form.u_phone" autocomplete="off"> </el-input>
+          <el-input v-model="form.uphone" autocomplete="off"> </el-input>
         </el-form-item>
-        <el-form-item label="性别" :label-width="formLabelWidth" prop="u_sex">
-          <el-radio-group v-model="form.u_sex">
+        <el-form-item label="性别" :label-width="formLabelWidth" prop="usex">
+          <el-radio-group v-model="form.usex">
             <el-radio label="男">男</el-radio>
             <el-radio label="女">女</el-radio>
           </el-radio-group>
@@ -131,7 +131,7 @@ export default {
       dialogFormVisible: false,
       form: {},
       rules: {
-        u_age: [
+        uage: [
           { required: true, message: "请输入面积", trigger: "blur" },
           { validator: over },
         ]
@@ -168,7 +168,7 @@ export default {
       })
         .then(() => {
           deleteUser({
-            id: row.u_id,
+            id: row.uid,
           }).then(() => {
             this.getTable();
             this.$message({

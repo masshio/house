@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="house-body">
     <nav-bar></nav-bar>
-    <div id="house-form">
+    <div class="house-form">
       <h2>发布房屋</h2>
       <el-divider></el-divider>
       <el-form ref="form" :model="form" :rules="rules">
@@ -144,12 +144,24 @@ export default {
 };
 </script>
 <style>
-#house-form {
+.house-body {
+  /* width: 100%; */
+  /* height: 100%; */
+  /* background-image: url('../../assets/reg-bg.png'); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.house-form {
   width: 40vw;
   position: relative;
   margin: 70px auto;
   left: 0;
   right: 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 100;
+  background: #fff;
 }
 h2 {
   font-size: 30px;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-main">
     <nav-bar></nav-bar>
     <aside class="aside">
       <ul>
@@ -49,12 +49,19 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.profile-main {
+  // background: rgba(0, 0, 0, 0.04);
+  position: relative;
+  height: 100vh;
+}
 .aside {
   position: absolute;
   width: 20vw;
   height: 200px;
   top: 10vh;
   left: 10vh;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   ul {
     width: 100%;
     height: 100%;

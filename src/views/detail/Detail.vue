@@ -7,7 +7,7 @@
       </div>
       <div class="descript">
         <div class="pay-way">
-          <span class="price">{{ house.h_price}}</span>
+          <span class="price">{{ house.hprice}}</span>
           <span class="month">元/月</span>
           <span class="way">押二付一</span>
         </div>
@@ -32,17 +32,17 @@ export default {
   data() {
     return {
       house: {
-        h_price: "",
-        h_type: "",
-        h_square: "",
-        h_des: "",
-        h_add: "",
-        h_pic: "",
+        hprice: "",
+        htype: "",
+        hsquare: "",
+        hdes: "",
+        hadd: "",
+        hpic: "",
       },
       user: {
-        r_name: "",
-        u_phone: "",
-        u_email: "",
+        rname: "",
+        uphone: "",
+        uemail: "",
       },
     };
   },
@@ -51,7 +51,7 @@ export default {
       return this.$route.params.id;
     },
     imgUrl() {
-      return "http://localhost:3000/" + this.house.h_pic;
+      return "http://localhost:3000/" + this.house.hpic;
     },
   },
   components: {
@@ -64,7 +64,7 @@ export default {
       .then((res) => {
         this.house = res.data.result[0];
         return getMessageById({
-          id: res.data.result[0].u_id,
+          id: res.data.result[0].uid,
         });
       })
       .then((res) => {
@@ -131,35 +131,35 @@ export default {
 
 <!-- <el-descriptions title="房屋信息" class="house" direction="vertical">
         <el-descriptions-item label="租金">
-          {{ house.h_price }}
+          {{ house.hprice }}
         </el-descriptions-item>
         <el-descriptions-item label="房屋类型">
-          {{ house.h_type }}
+          {{ house.htype }}
         </el-descriptions-item>
         <el-descriptions-item label="面积">
-          {{ house.h_square }} m<sup>2</sup>
+          {{ house.hsquare }} m<sup>2</sup>
         </el-descriptions-item>
         <el-descriptions-item label="地址">
-          {{ house.h_add }}
+          {{ house.hadd }}
         </el-descriptions-item>
       </el-descriptions>
       <el-descriptions title="屋主信息" class="user">
         <el-descriptions-item label="名称">
-          {{ user.r_name }}
+          {{ user.rname }}
         </el-descriptions-item>
         <el-descriptions-item label="手机号">
-          {{ user.u_phone }}
+          {{ user.uphone }}
         </el-descriptions-item>
         <el-descriptions-item label="邮箱">
-          {{ user.u_email }}
+          {{ user.uemail }}
         </el-descriptions-item>
       </el-descriptions>
       <el-descriptions title="费用详情" class="price">
         <el-descriptions-item label="付款方式">月付</el-descriptions-item>
         <el-descriptions-item label="租金">
-          {{ house.h_price }}
+          {{ house.hprice }}
         </el-descriptions-item>
         <el-descriptions-item label="押金">
-          {{ house.h_price }}
+          {{ house.hprice }}
         </el-descriptions-item>
       </el-descriptions> -->
