@@ -3,10 +3,9 @@
     <el-table :data="tableDate" stripe>
       <el-table-column prop="uid" label="用户id"> </el-table-column>
       <el-table-column prop="uname" label="用户名"> </el-table-column>
-      <el-table-column prop="uadd" label="地址"></el-table-column>
       <el-table-column prop="uage" label="年龄"></el-table-column>
       <el-table-column prop="uemail" label="邮箱"></el-table-column>
-      <el-table-column prop="rname" label="真实姓名"> </el-table-column>
+      <el-table-column prop="rname" label="昵称"> </el-table-column>
       <el-table-column prop="uphone" label="电话号码"> </el-table-column>
       <el-table-column prop="usex" label="性别"> </el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -50,14 +49,6 @@
           ></el-input>
         </el-form-item>
         <el-form-item
-          label="地址"
-          :label-width="formLabelWidth"
-          prop="uadd"
-          :rules="[{ required: true, message: '请输入地址', trigger: 'blur' }]"
-        >
-          <el-input v-model="form.uadd"> </el-input>
-        </el-form-item>
-        <el-form-item
           label="年龄"
           :label-width="formLabelWidth"
           prop="uage"
@@ -81,7 +72,7 @@
           <el-input v-model="form.uemail" autocomplete="off"> </el-input>
         </el-form-item>
         <el-form-item
-          label="真实姓名"
+          label="昵称"
           :label-width="formLabelWidth"
           prop="rname"
           :rules="[{ required: true, message: '请输入姓名', trigger: 'blur' }]"

@@ -25,8 +25,7 @@
 
 <script>
 import NavBar from "@/components/navbar/NavBar.vue";
-import { getHousesById } from "@/api/house";
-import { getMessageById } from "@/api/house";
+import { getHousesById, getMessageById } from "@/api/house";
 export default {
   name: "Detail",
   data() {

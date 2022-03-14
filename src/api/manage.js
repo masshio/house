@@ -29,6 +29,26 @@ export function userAge(parameter) {
     return request({
         url: '/user/userAge',
         method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+}
+export function passExamine(parameter) {
+    return request({
+        url: '/house/passExamine',
+        method: 'post',
+        data: parameter,
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+}
+export function rejectExamine(parameter) {
+    return request({
+        url: '/house/rejectExamine',
+        method: 'post',
         data: parameter,
         headers: {
             'content-type': 'application/json'

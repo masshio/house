@@ -55,7 +55,6 @@ export function addHouses(parameter) {
         method: 'post',
         data: parameter,
         headers: {
-            // 'content-type': 'multipart/form-data',
             'content-type': 'application/json',
         }
     })
