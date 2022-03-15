@@ -60,6 +60,19 @@ export function addHouses(parameter) {
     })
 }
 
+// 获取用户审核中房屋
+export function getExamineHouses(parameter) {
+    return request({
+        url: '/house/getExamineHouses',
+        method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+}
+
+
 // 获取用户个人房屋
 export function getOwnHouses(parameter) {
     return request({
@@ -88,6 +101,18 @@ export function deleteHouses(parameter) {
 export function updateHouses(parameter) {
     return request({
         url: '/house/updateHouses',
+        method: 'post',
+        data: parameter,
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+}
+
+// 重新提交
+export function modifyHouse(parameter) {
+    return request({
+        url: '/house/modifyHouse',
         method: 'post',
         data: parameter,
         headers: {

@@ -1,5 +1,5 @@
 <template>
-  <div id="table">
+  <div id="own-table">
     <el-table :data="tableDate" stripe>
       <el-table-column prop="hadd" label="地址"></el-table-column>
       <el-table-column prop="hdes" label="描述"></el-table-column>
@@ -271,7 +271,7 @@ export default {
 };
 </script>
 <style lang="scss">
-#table {
+#own-table {
   width: 60vw;
   margin-left: 30vw;
   overflow: hidden;

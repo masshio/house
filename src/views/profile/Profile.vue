@@ -38,7 +38,8 @@
 import Message from "./childComps/Message";
 import ChangePass from "./childComps/ChangePass";
 import NavBar from "@/components/navbar/NavBar";
-import OwnHouse from './childComps/OwnHouse'
+import OwnHouse from './childComps/OwnHouse';
+import Examine from './childComps/Examine';
 export default {
   name: "Profile",
   data() {
@@ -50,7 +51,8 @@ export default {
     Message,
     ChangePass,
     NavBar,
-    OwnHouse
+    OwnHouse,
+    Examine
   },
 };
 </script>

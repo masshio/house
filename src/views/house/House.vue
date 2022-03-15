@@ -47,6 +47,7 @@
             :on-change="handleChange"
             :on-remove="handleRemove"
             :on-success="handleSuccess"
+            :file-list="fileList"
           >
             <i class="el-icon-plus"></i>
             <div class="el-upload__tip" slot="tip">
@@ -86,6 +87,7 @@ export default {
       },
       limit: 1,
       hideUpload: false,
+      fileList: [],
       headers: {
         token: this.$store.state.token,
       },
@@ -120,6 +122,8 @@ export default {
                 message: "发布成功,请查看个人信息是否填写完全",
               });
               this.$refs.form.resetFields();
+              this.fileList = [];
+               this.hideUpload = false;
             })
             .catch((err) => {
               this.$message({

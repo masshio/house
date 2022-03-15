@@ -1,6 +1,6 @@
 <template>
   <div id="change-form">
-    <h2>修改密码</h2>
+    <h3>修改密码</h3>
     <el-divider></el-divider>
     <el-form class="form" ref="form" :rules="rules" :model="form" status-icon>
       <el-form-item label="当前密码:" prop="pass">
@@ -15,9 +15,9 @@
       <el-button type="success" icon="el-icon-check" @click="save"
         >确认</el-button
       >
-      <el-form-item>
+      <!-- <el-form-item>
         <el-input v-model="form.name" type="hidden"></el-input>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
   </div>
 </template>
