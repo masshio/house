@@ -12,10 +12,10 @@
           <span class="way">押二付一</span>
         </div>
         <ul class="house-detail">
-          <li>房屋类型:</li>
+          <li>房屋类型: {{house.htype}} </li>
           <li>朝向楼层:</li>
           <li>所在小区:</li>
-          <li>详细地址:</li>
+          <li>详细地址: {{house.hadd}} </li>
         </ul>
       </div>
       
@@ -127,38 +127,3 @@ export default {
   }
 }
 </style>
-
-<!-- <el-descriptions title="房屋信息" class="house" direction="vertical">
-        <el-descriptions-item label="租金">
-          {{ house.hprice }}
-        </el-descriptions-item>
-        <el-descriptions-item label="房屋类型">
-          {{ house.htype }}
-        </el-descriptions-item>
-        <el-descriptions-item label="面积">
-          {{ house.hsquare }} m<sup>2</sup>
-        </el-descriptions-item>
-        <el-descriptions-item label="地址">
-          {{ house.hadd }}
-        </el-descriptions-item>
-      </el-descriptions>
-      <el-descriptions title="屋主信息" class="user">
-        <el-descriptions-item label="名称">
-          {{ user.rname }}
-        </el-descriptions-item>
-        <el-descriptions-item label="手机号">
-          {{ user.uphone }}
-        </el-descriptions-item>
-        <el-descriptions-item label="邮箱">
-          {{ user.uemail }}
-        </el-descriptions-item>
-      </el-descriptions>
-      <el-descriptions title="费用详情" class="price">
-        <el-descriptions-item label="付款方式">月付</el-descriptions-item>
-        <el-descriptions-item label="租金">
-          {{ house.hprice }}
-        </el-descriptions-item>
-        <el-descriptions-item label="押金">
-          {{ house.hprice }}
-        </el-descriptions-item>
-      </el-descriptions> -->

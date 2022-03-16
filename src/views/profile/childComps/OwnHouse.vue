@@ -41,7 +41,7 @@
     </div>
 
     <el-dialog center title="房屋信息" :visible.sync="dialogFormVisible">
-      <el-form :model="form" :rules="rules" ref="form">
+      <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item
           label="详细地址"
           :label-width="formLabelWidth"
@@ -273,7 +273,7 @@ export default {
 <style lang="scss">
 #own-table {
   width: 60vw;
-  margin-left: 30vw;
+  margin-left: 25vw;
   overflow: hidden;
   margin-top: 100px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

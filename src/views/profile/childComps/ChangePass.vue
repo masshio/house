@@ -2,7 +2,7 @@
   <div id="change-form">
     <h3>修改密码</h3>
     <el-divider></el-divider>
-    <el-form class="form" ref="form" :rules="rules" :model="form" status-icon>
+    <el-form class="form" ref="form" :rules="rules" :model="form" status-icon label-width="100px">
       <el-form-item label="当前密码:" prop="pass">
         <el-input v-model="form.pass" type="password"></el-input>
       </el-form-item>

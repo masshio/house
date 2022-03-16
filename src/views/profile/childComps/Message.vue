@@ -1,10 +1,10 @@
 <template>
   <div id="user-form">
-    <el-form ref="form" :model="form" :rules="rules">
+    <el-form ref="form" :model="form" :rules="rules" label-width="100px">
       <el-form-item label="用户名：" prop="name">
         <el-input v-model="form.name" clearable :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="怎么称呼您：" prop="rname" required>
+      <el-form-item label="昵称：" prop="rname" required>
         <el-input v-model="form.rname" clearable></el-input>
       </el-form-item>
       <el-form-item label="年龄：" prop="age">
@@ -82,7 +82,6 @@ export default {
 <style scoped lang="scss">
 #user-form {
   width: 40vw;
-  position: relative;
   margin: auto;
   left: 0;
   right: 0;

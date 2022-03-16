@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     handleSuccess(res, file, fileList) {
-      console.log(res,fileList);
+      console.log(res,fileList); // 这里拿filelist
     },
-    handleChange(file, fileList) {
-      // console.log("change",file, fileList);
+    handleChange(file, fileList) { // 不要
+      console.log("change",file, fileList);
     },
     handleRemove(file, fileList) {
       console.log("remove",file, fileList);

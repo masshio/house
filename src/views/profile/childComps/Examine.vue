@@ -29,11 +29,10 @@
       </el-table-column>
       <el-table-column label="审核状态">
         <template slot-scope="scope">
-          <!-- {{ scope.row.reason == null ? '审核中' : scope.row.reason }} -->
           <el-popover trigger="hover" placement="top" v-if="scope.row.examine < 0">
             <p>{{ scope.row.reason }}</p>
             <div slot="reference">
-              <el-tag size="medium">审核未通过</el-tag>
+              <el-tag type="danger" size="medium">审核未通过</el-tag>
             </div>
           </el-popover>
           <el-tag v-else size="medium">审核中</el-tag>
@@ -54,9 +53,9 @@
     </div>
 
     <el-dialog center title="房屋信息" :visible.sync="dialogFormVisible">
-      <el-form :model="form" :rules="rules" ref="form">
+      <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item
-          label="详细地址"
+          label="详细地址："
           :label-width="formLabelWidth"
           prop="hadd"
           :rules="[{ required: true, message: '请输入地址', trigger: 'blur' }]"
@@ -64,7 +63,7 @@
           <el-input v-model="form.hadd" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
-          label="描述"
+          label="房屋描述："
           :label-width="formLabelWidth"
           prop="hdes"
           :rules="[{ required: true, message: '请输入描述', trigger: 'blur' }]"
@@ -79,18 +78,18 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="月租" :label-width="formLabelWidth" prop="hprice">
+        <el-form-item label="月租金：" :label-width="formLabelWidth" prop="hprice">
           <el-input type="number" v-model="form.hprice" autocomplete="off">
             <template slot="append">元/月</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="面积" :label-width="formLabelWidth" prop="hsquare">
+        <el-form-item label="房屋面积：" :label-width="formLabelWidth" prop="hsquare">
           <el-input type="number" v-model="form.hsquare" autocomplete="off">
             <template slot="append">m<sup>2</sup></template>
           </el-input>
         </el-form-item>
         <el-form-item
-          label="房屋类型"
+          label="房屋类型："
           :label-width="formLabelWidth"
           prop="htype"
           :rules="[
@@ -100,7 +99,7 @@
           <el-input v-model="form.htype" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
-          label="房屋图片"
+          label="房屋图片："
           :label-width="formLabelWidth"
           prop="hpic"
         >
@@ -267,7 +266,7 @@ export default {
 <style lang="scss">
 #own-table {
   width: 60vw;
-  margin-left: 30vw;
+  margin-left: 25vw;
   overflow: hidden;
   margin-top: 100px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

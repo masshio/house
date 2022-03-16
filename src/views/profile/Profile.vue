@@ -64,7 +64,7 @@ export default {
 }
 .aside {
   position: absolute;
-  width: 20vw;
+  width: 15vw;
   height: 250px;
   top: 10vh;
   left: 10vh;

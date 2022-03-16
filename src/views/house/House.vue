@@ -4,7 +4,45 @@
     <div class="house-form">
       <h2>发布房屋</h2>
       <el-divider></el-divider>
-      <el-form ref="form" :model="form" :rules="rules">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+        <el-form-item label="租赁方式：" prop="mode">
+          <el-select v-model="form.mode" placeholder="请选择租赁方式">
+            <el-option label="整租" value="整租"></el-option>
+            <el-option label="合租" value="合租"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="小区名称：" prop="estate">
+          <el-input v-model.trim="form.estate" clearable> </el-input>
+        </el-form-item>
+        <el-form-item label="楼层信息：" required>
+          <el-col :span="8">
+            <el-form-item prop="floor">
+              <el-input v-model.trim="form.floor" clearable>
+                <template slot="prepend">第</template>
+                <template slot="append">层</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="2">&nbsp;</el-col>
+          <el-col :span="8">
+            <el-form-item prop="tfloor"> </el-form-item>
+            <el-input v-model.trim="form.tfloor" clearable>
+              <template slot="prepend">共</template>
+              <template slot="append">层</template>
+            </el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="房屋朝向：" prop="orientation">
+          <el-select v-model="form.orientation" placeholder="请选择朝向" size="medium">
+            <el-option
+              v-for="item in orientation"
+              :key="item"
+              :label="item"
+              :value="item"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="详细地址：" prop="add">
           <el-input v-model.trim="form.add" clearable></el-input>
         </el-form-item>
@@ -13,6 +51,7 @@
             <template slot="append">m<sup>2</sup></template>
           </el-input>
         </el-form-item>
+
         <el-form-item label="房屋描述：" prop="des">
           <el-input
             type="textarea"
@@ -24,7 +63,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="月租：" prop="price">
+        <el-form-item label="月租金：" prop="price">
           <el-input v-model="form.price" clearable type="number">
             <template slot="append">元/月</template>
           </el-input>
@@ -92,6 +131,9 @@ export default {
         token: this.$store.state.token,
       },
       rules: {
+        estate: [
+          { required: true, message: "请输入小区名称", trigger: "blur" },
+        ],
         add: [{ required: true, message: "请输入地址", trigger: "blur" }],
         square: [
           { required: true, message: "请输入面积", trigger: "blur" },
@@ -105,6 +147,7 @@ export default {
         type: [{ required: true, message: "请输入房屋类型", trigger: "blur" }],
         pic: [{ required: true, message: "请上传房屋图片", trigger: "blur" }],
       },
+      orientation: ['东','南','西','北','东南','东北','西南','西北','东西','南北']
     };
   },
   components: {
@@ -116,14 +159,14 @@ export default {
         if (valid) {
           this.form.userid = this.$store.state.id;
           addHouses(this.form)
-            .then( _ => {
+            .then((_) => {
               this.$message({
                 type: "success",
                 message: "发布成功,请查看个人信息是否填写完全",
               });
               this.$refs.form.resetFields();
               this.fileList = [];
-               this.hideUpload = false;
+              this.hideUpload = false;
             })
             .catch((err) => {
               this.$message({
@@ -138,7 +181,7 @@ export default {
       this.hideUpload = fileList.length >= 1;
     },
     handleRemove(file, fileList) {
-      this.form.pic = ''
+      this.form.pic = "";
       this.hideUpload = fileList.length >= 1;
     },
     handleSuccess(res, file, fileList) {
@@ -148,13 +191,6 @@ export default {
 };
 </script>
 <style>
-.house-body {
-  /* width: 100%; */
-  /* height: 100%; */
-  /* background-image: url('../../assets/reg-bg.png'); */
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
 .house-form {
   width: 40vw;
   position: relative;

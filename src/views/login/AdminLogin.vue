@@ -2,7 +2,13 @@
   <div id="main">
     <h1>管理员登录</h1>
     <div class="wrap">
-      <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="80px"
+        :rules="rules"
+        :hide-required-asterisk="true"
+      >
         <el-form-item label="用户名：" prop="name">
           <el-input
             v-model.trim="form.name"
@@ -82,7 +88,7 @@ export default {
   text-align: center;
   height: 100vh;
   overflow: hidden;
-  background: #f0f2f5 url('../../assets/background.svg') no-repeat 50%;
+  background: #f0f2f5 url("../../assets/background.svg") no-repeat 50%;
   h1 {
     margin-top: 100px;
   }
