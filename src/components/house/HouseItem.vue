@@ -2,7 +2,9 @@
   <div id="item-wrap">
     <!-- <img src="" alt=""> -->
     <img :src="imgUrl" class="img">
-    <div class="title" @click="toDetail">{{house.hdes}}</div>
+    <div class="title" @click="toDetail">
+      {{house.mode}} | {{house.estate}} {{house.htype}}
+    </div>
     <div class="addr">
       {{house.hadd}}
     </div>

@@ -1,8 +1,8 @@
 <template>
   <div id="own-table">
     <el-table :data="tableDate" stripe>
-      <el-table-column prop="hadd" label="地址"></el-table-column>
-      <el-table-column prop="hdes" label="描述"></el-table-column>
+      <el-table-column prop="hadd" label="地址" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column prop="hdes" label="描述" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="hprice" label="月租"> </el-table-column>
       <el-table-column prop="hsquare" label="面积"> </el-table-column>
       <el-table-column prop="htype" label="房屋类型"> </el-table-column>
@@ -54,6 +54,49 @@
 
     <el-dialog center title="房屋信息" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
+        <el-form-item label="租赁方式：" prop="mode" :label-width="formLabelWidth">
+          <el-select v-model="form.mode" placeholder="请选择租赁方式">
+            <el-option label="整租" value="整租"></el-option>
+            <el-option label="合租" value="合租"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="小区名称：" prop="estate" :label-width="formLabelWidth">
+          <el-input v-model.number="form.estate" clearable> </el-input>
+        </el-form-item>
+        <el-form-item label="楼层信息：" required :label-width="formLabelWidth">
+          <el-col :span="8">
+            <el-form-item prop="floor">
+              <el-input v-model.number="form.floor" type="number">
+                <template slot="prepend">第</template>
+                <template slot="append">层</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="2">&nbsp;</el-col>
+          <el-col :span="8">
+            <el-form-item prop="tfloor">
+              <el-input v-model.number="form.tfloor" type="number">
+                <template slot="prepend">共</template>
+                <template slot="append">层</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="房屋朝向：" prop="orientation" :label-width="formLabelWidth">
+          <el-select
+            v-model="form.orientation"
+            placeholder="请选择朝向"
+            size="medium"
+          >
+            <el-option
+              v-for="item in orientation"
+              :key="item"
+              :label="item"
+              :value="item"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item
           label="详细地址："
           :label-width="formLabelWidth"
@@ -78,12 +121,31 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="月租金：" :label-width="formLabelWidth" prop="hprice">
-          <el-input type="number" v-model="form.hprice" autocomplete="off">
-            <template slot="append">元/月</template>
-          </el-input>
+        <el-form-item label="月租金：" required :label-width="formLabelWidth">
+          <el-col :span="8">
+            <el-form-item prop="hprice">
+              <el-input v-model="form.hprice" type="number">
+                <template slot="append">元/月</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="2">&nbsp;</el-col>
+          <el-col :span="8">
+            <el-form-item prop="pay">
+              <el-select v-model="form.pay" placeholder="请选择付款方式">
+                <el-option label="押一付一" value="押一付一"></el-option>
+                <el-option label="押三付一" value="押三付一"></el-option>
+                <el-option label="半年付" value="半年付"></el-option>
+                <el-option label="年付" value="年付"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-form-item>
-        <el-form-item label="房屋面积：" :label-width="formLabelWidth" prop="hsquare">
+        <el-form-item
+          label="房屋面积："
+          :label-width="formLabelWidth"
+          prop="hsquare"
+        >
           <el-input type="number" v-model="form.hsquare" autocomplete="off">
             <template slot="append">m<sup>2</sup></template>
           </el-input>
@@ -167,10 +229,37 @@ export default {
           { required: true, message: "请输入月租价格", trigger: "blur" },
         ],
         hpic: [{ required: true, message: "请上传房屋图片", trigger: "blur" }],
+        mode: [{ required: true, message: "请选择租赁方式", trigger: "blur" }],
+        floor: [
+          { required: true, message: "请输入楼层", trigger: "blur" },
+          { validator: over },
+        ],
+        tfloor: [
+          { required: true, message: "请输入总楼层", trigger: "blur" },
+          { validator: over },
+        ],
+        estate: [
+          { required: true, message: "请输入小区名称", trigger: "blur" },
+        ],
+        orientation: [
+          { required: true, message: "请选择房屋朝向", trigger: "blur" },
+        ],
       },
       formLabelWidth: "120px",
       isshow: false,
       total: 0,
+      orientation: [
+        "东",
+        "南",
+        "西",
+        "北",
+        "东南",
+        "东北",
+        "西南",
+        "西北",
+        "东西",
+        "南北",
+      ],
     };
   },
   computed: {
