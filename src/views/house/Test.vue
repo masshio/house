@@ -8,9 +8,9 @@
       :file-list="fileList"
       :on-success="handleSuccess"
       :multiple="true"
-      :on-change="handleChange"
       :on-remove="handleRemove"
     >
+      <!-- :on-change="handleChange" -->
     </el-upload>
 
   </div>
@@ -25,19 +25,22 @@ export default {
       header: {
         token: store.state.token,
       },
+      pic: [],
       fileList:[]
     };
   },
   methods: {
     handleSuccess(res, file, fileList) {
-      console.log(res,fileList); // 这里拿filelist
+      console.log('success',res,fileList); // 这里拿filelist
+      this.pic.push(res.pic);
     },
-    handleChange(file, fileList) { // 不要
-      console.log("change",file, fileList);
-    },
+    // handleChange(file, fileList) { // 不要
+    //   console.log("change",file, fileList);
+    // },
     handleRemove(file, fileList) {
       console.log("remove",file, fileList);
-      console.log(this.fileList);
+      let index = this.pic.indexOf(file.response.pic)
+      this.pic.splice(index,1)
     },
   },
 };

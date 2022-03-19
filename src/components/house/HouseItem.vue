@@ -37,9 +37,9 @@ export default {
 </script>
 <style scoped lang="scss">
 #item-wrap {
-  width: 60vw;
+  width: 980px;
   height: 110px;
-  margin: 20px 20vw;
+  margin: 20px auto;
   padding: 20px 30px;
   border-radius: 10px;
   transition: 0.5s;

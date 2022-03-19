@@ -89,7 +89,7 @@ export default {
 </script>
 <style scoped lang="scss">
 #change-form {
-  width: 40vw;
+  width: 600px;
   position: relative;
   margin: auto;
   left: 0;

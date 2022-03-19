@@ -2,7 +2,7 @@
   <div class="house-body">
     <nav-bar></nav-bar>
     <div class="house-form">
-      <h2>发布房屋</h2>
+      <h3>发布房屋</h3>
       <el-divider></el-divider>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="租赁方式：" prop="mode">
@@ -62,7 +62,7 @@
             type="textarea"
             maxlength="100"
             show-word-limit
-            :autosize="{ minRows: 2, maxRows: 4 }"
+            :autosize="{ minRows: 4, maxRows: 4 }"
             placeholder="可以介绍一下房源亮点，交通、周边环境，可以入住的时间和对租客的要求等，详细的描述会大大增加快速出租的机会！请不要在描述中包含：1.任意形式的联系方式及变型词；2.与房源或相关配套描述无关的内容；3.违反国家法律法规的内容等"
             v-model.trim="form.des"
           >
@@ -242,9 +242,8 @@ export default {
   z-index: 100;
   background: #fff;
 }
-h2 {
+h3 {
   font-size: 30px;
-  margin-bottom: 50px;
 }
 .hide .el-upload--picture-card {
   display: none;

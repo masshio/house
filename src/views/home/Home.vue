@@ -92,8 +92,8 @@ export default {
   /* background: rgba(0, 0, 0, .04); */
 }
 .pagination {
-  width: 60vw;
-  margin: 20px 20vw;
+  width: 850px;
+  margin: 20px auto;
   display: flex;
   justify-content: center;
 }

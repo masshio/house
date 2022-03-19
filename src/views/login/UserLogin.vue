@@ -26,7 +26,6 @@
             @keyup.native.enter="onSubmit"
           ></el-input>
         </el-form-item>
-        <el-form-item>
           <el-button
             type="primary"
             @click="onSubmit"
@@ -38,7 +37,6 @@
           <el-button type="primary" @click="toRegister" class="el-btn">
             注册
           </el-button>
-        </el-form-item>
       </el-form>
     </div>
   </div>
@@ -115,8 +113,8 @@ export default {
     margin-top: 100px;
   }
   .wrap {
-    width: 30vw;
-    height: 30vh;
+    width: 500px;
+    height: 250px;
     position: absolute;
     left: 0;
     right: 0;

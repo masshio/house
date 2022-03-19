@@ -7,19 +7,47 @@
       </div>
       <div class="descript">
         <div class="pay-way">
-          <span class="price">{{ house.hprice}}</span>
+          <span class="price">{{ house.hprice }}</span>
           <span class="month">元/月</span>
           <span class="way">押二付一</span>
         </div>
         <ul class="house-detail">
-          <li>房屋类型: {{house.htype}} </li>
-          <li>朝向楼层:</li>
-          <li>所在小区:</li>
-          <li>详细地址: {{house.hadd}} </li>
+          <li>
+            <span class="det">租赁方式:</span>
+            <span>{{ house.mode }}</span>
+          </li>
+          <li>
+            <span class="det">房屋类型:</span>
+            <span
+              >{{ house.htype }}&nbsp;&nbsp;{{ house.hsquare }}m<sup
+                >2</sup
+              ></span
+            >
+          </li>
+          <li>
+            <span class="det">朝向楼层:</span>
+            <span>{{ house.orientation }}&nbsp;&nbsp;{{ house.floor }}层/{{storey}}</span>
+
+          </li>
+          <li>
+            <span class="det">所在小区:</span><span>{{ house.estate }}</span>
+          </li>
+          <li>
+            <span class="det">详细地址:</span><span>{{ house.hadd }}</span>
+          </li>
         </ul>
+        <div>
+          <img :src="'http://localhost:3000/' + user.uavatar" class="avatar" />
+          <div class="rname">{{ user.rname }}</div> 
+          <div class="phone" @click="flag = !flag">
+            <el-icon class="el-icon-phone" style="margin-right: 5px"></el-icon>
+            <span v-show="flag"> 电话咨询 </span>
+            <span v-show="!flag"> {{user.uphone}} </span>
+          </div>
+        </div>
       </div>
-      
     </div>
+    
   </div>
 </template>
 
@@ -42,7 +70,11 @@ export default {
         rname: "",
         uphone: "",
         uemail: "",
+        uavatar: "avatar.png",
+        floor: 1,
+        tfloor: 1
       },
+      flag: true,
     };
   },
   computed: {
@@ -50,8 +82,17 @@ export default {
       return this.$route.params.id;
     },
     imgUrl() {
-      return "http://localhost:3000/" + this.house.hpic;
+      return this.house.hpic === '' ? '' : "http://localhost:3000/" + this.house.hpic;
     },
+    storey() {
+      if(this.user.floor < this.user.tfloor/3) {
+        return '低层'
+      } else if(this.user.floor > 2 * (this.user.tfloor/3)) {
+        return '高层'
+      } else {
+        return '中层'
+      }
+    }
   },
   components: {
     NavBar,
@@ -74,50 +115,74 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-// .house,
-// .user,
-// .price {
-//   width: 60vw;
-//   margin-top: 50px;
-//   margin-left: 20vw;
-//   font-size: 16px;
-//   border: 1px solid #eee;
-//   padding: 20px;
-//   border-radius: 10px;
-// }
 .wrap {
-  width: 80vw;
+  width: 1150px;
   // background: #eee;
-  margin-left: 10vw;
-  margin-top: 50px;
+  margin: 20px auto;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(243, 243, 243);
   .cover {
-    width: 40vw;
-    height: 40vh;
+    width: 510px;
+    height: 348px;
     display: block;
   }
   .descript {
-    border-top: 1px solid rgb(243, 243, 243);
-    width: 40vw;
+    // border-top: 1px solid rgb(243, 243, 243);
+    border: 1px solid rgb(243, 243, 243);
+    border-radius: 2px;
+    width: 545px;
     padding: 20px;
-    padding-left: 40px;
+    margin-left: 20px;
+    height: 308px;
+    .avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      float: left;
+      margin-right: 10px;
+    }
+    .rname {
+      line-height: 62px;
+      margin-bottom: 2px;
+      float: left;
+    }
+    .phone {
+      float: left;
+      width: 150px;
+      height: 50px;
+      line-height: 50px;
+      margin: 6px 0;
+      margin-left: 20px;
+      text-align: center;
+      background: #00ae66;
+      color: #fff;
+      cursor: pointer;
+    }
     .house-detail {
-      height: 90%;
+      height: 180px;
       display: flex;
       flex-direction: column;
       list-style: none;
       justify-content: space-around;
+      margin: 6px 0;
+      .det {
+        color: #888;
+        margin-right: 15px;
+      }
     }
     .pay-way {
+      border-bottom: 1px solid #e4e6f0;
+      padding-bottom: 10px;
       .price {
-        font-size: 40px;
+        font-size: 36px;
         color: #ff552e;
         margin-right: 10px;
       }
       .month {
         color: #ff552e;
-        font-size: 20px;
+        font-size: 18px;
       }
       .way {
         margin-left: 30px;
