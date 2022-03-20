@@ -3,14 +3,16 @@
     <el-upload
       ref="upload"
       action="http://127.0.0.1:3000/house/uploadImg"
+      :limit="limit"
       :headers="header"
       list-type="picture-card"
+      :before-upload="beforeUpload"
       :file-list="fileList"
       :on-success="handleSuccess"
       :multiple="true"
       :on-remove="handleRemove"
+      :on-change="handleChange"
     >
-      <!-- :on-change="handleChange" -->
     </el-upload>
 
   </div>
@@ -26,22 +28,24 @@ export default {
         token: store.state.token,
       },
       pic: [],
-      fileList:[]
+      fileList:[],
+      limit: 8
     };
   },
   methods: {
     handleSuccess(res, file, fileList) {
-      console.log('success',res,fileList); // 这里拿filelist
       this.pic.push(res.pic);
     },
-    // handleChange(file, fileList) { // 不要
-    //   console.log("change",file, fileList);
-    // },
+    handleChange(file, fileList) {
+      console.log("change",file, fileList);
+    },
     handleRemove(file, fileList) {
-      console.log("remove",file, fileList);
       let index = this.pic.indexOf(file.response.pic)
       this.pic.splice(index,1)
     },
+    beforeUpload(file) {
+      console.log(file);
+    }
   },
 };
 </script>

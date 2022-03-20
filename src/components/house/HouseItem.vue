@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return 'http://localhost:3000/' + this.house.hpic
+      return 'http://localhost:3000/' + this.house.hpic[0]
     }
   },
   methods: {

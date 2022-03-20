@@ -1,10 +1,18 @@
 <template>
   <div id="own-table">
     <el-table :data="tableDate" stripe>
-      <el-table-column prop="hadd" label="地址" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column
+        prop="hadd"
+        label="地址"
+        :show-overflow-tooltip="true"
+      ></el-table-column>
       <el-table-column prop="mode" label="租赁方式"></el-table-column>
       <el-table-column prop="estate" label="小区名字"></el-table-column>
-      <el-table-column prop="hdes" label="描述" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column
+        prop="hdes"
+        label="描述"
+        :show-overflow-tooltip="true"
+      ></el-table-column>
       <el-table-column prop="hprice" label="月租"> </el-table-column>
       <el-table-column prop="hsquare" label="面积"> </el-table-column>
       <el-table-column prop="htype" label="房屋类型"> </el-table-column>
@@ -14,7 +22,7 @@
         <template slot-scope="scope">
           <span class="title-img">
             <img
-              :src="'http://localhost:3000/' + scope.row.hpic"
+              :src="'http://localhost:3000/' + scope.row.hpic[0]"
               class="table-img"
             />
           </span>
@@ -46,13 +54,21 @@
 
     <el-dialog center title="房屋信息" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
-        <el-form-item label="租赁方式：" prop="mode" :label-width="formLabelWidth">
+        <el-form-item
+          label="租赁方式："
+          prop="mode"
+          :label-width="formLabelWidth"
+        >
           <el-select v-model="form.mode" placeholder="请选择租赁方式">
             <el-option label="整租" value="整租"></el-option>
             <el-option label="合租" value="合租"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="小区名称：" prop="estate" :label-width="formLabelWidth">
+        <el-form-item
+          label="小区名称："
+          prop="estate"
+          :label-width="formLabelWidth"
+        >
           <el-input v-model.number="form.estate" clearable> </el-input>
         </el-form-item>
         <el-form-item label="楼层信息：" required :label-width="formLabelWidth">
@@ -74,7 +90,11 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="房屋朝向：" prop="orientation" :label-width="formLabelWidth">
+        <el-form-item
+          label="房屋朝向："
+          prop="orientation"
+          :label-width="formLabelWidth"
+        >
           <el-select
             v-model="form.orientation"
             placeholder="请选择朝向"
@@ -158,32 +178,22 @@
           prop="hpic"
         >
           <el-upload
-            :class="{hide: hideUpload}"
+            :class="{ hide: hideUpload }"
+            :multiple="true"
             ref="upload"
-            action="111"
-            :auto-upload="false"
+            action="http://127.0.0.1:3000/house/uploadImg"
+            :headers="headers"
             :limit="limit"
-            list-type="picture-card"
-            :http-request="handleUpload"
             :file-list="fileList"
+            list-type="picture-card"
+            :before-upload="handleUpload"
             :on-change="handleChange"
-            :on-remove="handleChange"
+            :on-remove="handleRemove"
+            :on-success="handleSuccess"
           >
-            <!-- <img v-if="imgUrl" :src="imgUrl" alt="photoPath" width="86px" height="86px" />
-            <div v-else>
-              <a-icon :type="imgLoading ? 'loading' : 'plus'" />
-              <div class="ant-upload-text">上传</div>
-              <div class="ant-upload-desc">108x108</div>
-            </div> -->
-            <img
-              v-if="flag"
-              :src="'http://localhost:3000/' + form.hpic"
-              class="uppic"
-              alt=""
-            />
-            <i v-else class="el-icon-plus"></i>
+            <i class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip">
-              只能上传一张jpg/png文件，且不超过500kb
+              只能上传八张jpg/png文件，且不超过500kb
             </div>
           </el-upload>
         </el-form-item>
@@ -211,12 +221,14 @@ export default {
       page: 1,
       total: 0,
       tableDate: [],
-      limit: 1,
-      flag: true,
+      limit: 8,
       fileList: [],
       dialogFormVisible: false,
       form: {},
       hideUpload: false,
+      headers: {
+        token: this.$store.state.token,
+      },
       rules: {
         hsquare: [
           { validator: over },
@@ -258,7 +270,7 @@ export default {
       formLabelWidth: "120px",
       isshow: false,
       total: 0,
-      fileData: new FormData()
+      picList: [],
     };
   },
   computed: {
@@ -281,22 +293,47 @@ export default {
         this.isshow = true;
       });
     },
+    handleUpload(file) {
+      console.log(file);
+      const isJPG = file.type === "image/jpeg" || "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传图片只能是 jpg/png 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
     handleChange(file, fileList) {
-      console.log("handleChange", fileList);
-      this.flag = !this.flag;
-      this.hideUpload = fileList.length >= 1;
+      this.hideUpload = fileList.length >= 8;
+    },
+    handleRemove(file, fileList) {
+      let index = file.url
+        ? this.picList.indexOf(file.name)
+        : this.picList.indexOf(file.response.pic);
+      this.picList.splice(index, 1);
+    },
+    handleSuccess(res, file, fileList) {
+      this.picList.push(res.pic);
     },
     handleCancel() {
       this.dialogFormVisible = false;
       this.fileList = [];
-      this.flag = true;
       this.hideUpload = false;
     },
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
-      console.log(row);
-      // this.fileList = [{ url: "http://localhost:3000/" + row.hpic }];
+      this.fileList = row.hpic.map((item) => {
+        return {
+          name: item,
+          url: "http://localhost:3000/" + item,
+        };
+      });
       this.dialogFormVisible = true;
+      this.picList = [...row.hpic];
+      this.hideUpload = row.hpic.length >= 8;
     },
     handleDelete(row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
@@ -323,13 +360,10 @@ export default {
         });
     },
     handleConfirm() {
-      this.$refs.upload.submit();
-      Object.keys(this.form).forEach((key) => {
-        this.fileData.append(key, this.form[key]);
-      });
       this.$refs.form.validate((valid) => {
         if (valid) {
-          updateHouses(this.fileData)
+          this.form.hpic = this.picList;
+          updateHouses(this.form)
             .then((res) => {
               this.$message({
                 type: "success",
@@ -338,7 +372,6 @@ export default {
               this.getHouses();
               this.dialogFormVisible = false;
               this.fileList = [];
-              this.flag = true;
               this.fileData = new FormData();
               this.hideUpload = true;
             })
@@ -347,15 +380,9 @@ export default {
                 type: "error",
                 message: "修改失败",
               });
-              this.flag = true;
             });
         }
       });
-    },
-    handleUpload(raw) {
-      // this.form.userid = this.$store.state.id;
-      this.form.pic = "sad";
-      this.fileData.append("file", raw.file);
     },
   },
 };

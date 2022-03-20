@@ -10,7 +10,7 @@
         <template slot-scope="scope">
           <span class="title-img">
             <img
-              :src="'http://localhost:3000/' + scope.row.hpic"
+              :src="'http://localhost:3000/' + scope.row.hpic[0]"
               class="table-img"
             />
           </span>
@@ -177,11 +177,7 @@
             :on-remove="handleRemove"
             :on-success="handleSuccess"
           >
-            <img
-              :src="'http://localhost:3000/' + form.hpic"
-              class="uppic"
-              alt=""
-            />
+            <i class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip">
               只能上传一张jpg/png文件，且不超过500kb
             </div>
@@ -260,6 +256,7 @@ export default {
         "东西",
         "南北",
       ],
+      picList: [],
     };
   },
   computed: {
@@ -283,14 +280,14 @@ export default {
       });
     },
     handleChange(file, fileList) {
-      this.hideUpload = fileList.length >= 1;
+      this.hideUpload = fileList.length >= 8;
     },
     handleRemove(file, fileList) {
-      this.form.pic = ''
-      this.hideUpload = fileList.length >= 1;
+      let index = file.url ? this.picList.indexOf(file.name) : this.picList.indexOf(file.response.pic);
+      this.picList.splice(index,1);
     },
     handleSuccess(res, file, fileList) {
-      this.form.pic = res.pic;
+      this.picList.push(res.pic);
     },
     handleCancel() {
       this.dialogFormVisible = false;
@@ -300,7 +297,14 @@ export default {
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
       this.dialogFormVisible = true;
-      this.hideUpload = false;
+      this.fileList = row.hpic.map(item => {
+        return {
+          name: item,
+          url: "http://localhost:3000/" + item
+        }
+      })
+      this.dialogFormVisible = true;
+      this.picList = [...row.hpic];
     },
     handleDelete(row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {

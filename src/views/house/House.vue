@@ -104,10 +104,11 @@
             :headers="headers"
             list-type="picture-card"
             :limit="limit"
-            :on-change="handleChange"
             :on-remove="handleRemove"
             :on-success="handleSuccess"
+            :on-change="handleChange"
             :file-list="fileList"
+            :multiple="true"
           >
             <i class="el-icon-plus"></i>
             <div class="el-upload__tip" slot="tip">
@@ -138,8 +139,9 @@ export default {
     };
     return {
       form: {
+        pic: []
       },
-      limit: 1,
+      limit: 8,
       hideUpload: false,
       fileList: [],
       headers: {
@@ -217,14 +219,15 @@ export default {
       });
     },
     handleChange(file, fileList) {
-      this.hideUpload = fileList.length >= 1;
+      this.hideUpload = fileList.length >= 8;
     },
     handleRemove(file, fileList) {
-      this.form.pic = "";
-      this.hideUpload = fileList.length >= 1;
+      let index = this.form.pic.indexOf(file.response.pic)
+      this.form.pic.splice(index,1)
+      this.hideUpload = fileList.length >= 8;
     },
     handleSuccess(res, file, fileList) {
-      this.form.pic = res.pic;
+      this.form.pic.push(res.pic);
     },
   },
 };
