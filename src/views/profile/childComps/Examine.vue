@@ -176,7 +176,9 @@
             :on-change="handleChange"
             :on-remove="handleRemove"
             :on-success="handleSuccess"
+            multiple
           >
+            <!-- :before-upload="handleUpload" -->
             <i class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip">
               只能上传一张jpg/png文件，且不超过500kb
@@ -210,7 +212,7 @@ export default {
       headers: {
         token: this.$store.state.token,
       },
-      limit: 1,
+      limit: 8,
       dialogFormVisible: false,
       fileList: [],
       form: {},
@@ -279,6 +281,17 @@ export default {
         this.isshow = true;
       });
     },
+    handleUpload(file) {
+      const isJPG = file.type === "image/jpeg" || "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传图片只能是 jpg/png 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
     handleChange(file, fileList) {
       this.hideUpload = fileList.length >= 8;
     },
@@ -303,8 +316,8 @@ export default {
           url: "http://localhost:3000/" + item
         }
       })
-      this.dialogFormVisible = true;
       this.picList = [...row.hpic];
+      this.hideUpload = row.hpic.length >= 8;
     },
     handleDelete(row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
@@ -333,6 +346,7 @@ export default {
     handleConfirm() {
       this.$refs.form.validate((valid) => {
         if (valid) {
+          this.form.hpic = this.picList;
           modifyHouse(this.form)
             .then((res) => {
               this.$message({

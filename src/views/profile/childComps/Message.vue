@@ -13,6 +13,7 @@
           :on-change="handleChange"
           :on-remove="handleRemove"
           :on-success="handleSuccess"
+          :before-upload="handleUpload"
         >
           <img
             :src="'http://localhost:3000/' + form.uavatar"
@@ -103,6 +104,18 @@ export default {
           message: "修改成功",
         });
       });
+    },
+    handleUpload(file) {
+      const isJPG = file.type === "image/jpeg" || "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 1;
+
+      if (!isJPG) {
+        this.$message.error("上传图片只能是 jpg/png 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 1MB!");
+      }
+      return isJPG && isLt2M;
     },
     handleChange(file, fileList) {
       this.hideUpload = fileList.length >= 1;

@@ -294,7 +294,6 @@ export default {
       });
     },
     handleUpload(file) {
-      console.log(file);
       const isJPG = file.type === "image/jpeg" || "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -372,7 +371,6 @@ export default {
               this.getHouses();
               this.dialogFormVisible = false;
               this.fileList = [];
-              this.fileData = new FormData();
               this.hideUpload = true;
             })
             .catch((err) => {

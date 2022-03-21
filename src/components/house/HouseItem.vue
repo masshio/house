@@ -5,15 +5,14 @@
     <div class="title" @click="toDetail">
       {{house.mode}} | {{house.estate}} {{house.htype}}
     </div>
-    <div class="addr">
+    <div class="addr font-14">
       {{house.hadd}}
     </div>
-    <div>
+    <div class="font-14">
       <span>{{house.hsquare}}m<sup>2</sup></span> / 
       <span>{{house.htype}}</span>
     </div>
     <div class="price">{{house.hprice}} <span>元/月</span> </div>
-    <!-- <el-divider class="divider"></el-divider> -->
   </div>
 </template>
 
@@ -39,7 +38,8 @@ export default {
 #item-wrap {
   width: 980px;
   height: 110px;
-  margin: 20px auto;
+  // margin: 20px auto;
+  margin-top: 20px;
   padding: 20px 30px;
   border-radius: 10px;
   transition: 0.5s;
@@ -55,22 +55,20 @@ export default {
     float: left;
     margin-right: 20px
   }
+  .font-14 {
+    font-size: 14px;
+  }
   .title {
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     display: inline-block;
-    width: 40vw;
+    width: 300px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     &:hover {
       color: #bb0000;
     }
-  }
-  .divider {
-    position: absolute;
-    bottom: -30px;
-    left: 0px;
   }
   .addr {
     margin-top: 10px;
@@ -79,7 +77,7 @@ export default {
   .price {
     height: 30px;
     line-height: 30px;
-    font-size: 30px;
+    font-size: 28px;
     position: absolute;
     right: 30px;
     top:0;
