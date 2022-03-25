@@ -2,8 +2,8 @@
   <div id="table">
     <el-table :data="tableDate" stripe>
       <el-table-column prop="hid" label="id"></el-table-column>
-      <el-table-column prop="hadd" label="地址"></el-table-column>
-      <el-table-column prop="hdes" label="描述"></el-table-column>
+      <el-table-column prop="hadd" label="地址" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column prop="hdes" label="描述" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="hprice" label="月租"> </el-table-column>
       <el-table-column prop="hsquare" label="面积"> </el-table-column>
       <el-table-column prop="htype" label="房屋类型"> </el-table-column>

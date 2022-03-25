@@ -30,3 +30,13 @@ export function updateUser(parameter) {
         }
     })
 }
+export function block(parameter) {
+    return request({
+        url: '/user/block',
+        method: 'post',
+        data: parameter,
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+}

@@ -47,20 +47,6 @@ import { UserLogin } from "@/api/login";
 export default {
   name: "UserLogin",
   data() {
-    // const validateUsername = (rule, value, callback) => {
-    //   if (!isvalidUsername(value)) {
-    //     callback(new Error('请输入用户名'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
-    // const validatePassword = (rule, value, callback) => {
-    //   if (value === '') {
-    //     callback(new Error('请输入密码'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
     return {
       form: {
         name: "",
@@ -87,10 +73,13 @@ export default {
                 this.$store.commit("SET_ID", res.data);
                 this.$router.push("/home");
               } else {
-                this.$message.error("登陆失败,请检查用户名和密码是否输入正确");
+                this.$message.error(res.message);
               }
             })
-            .catch((err) => {});
+            .catch((err) => {
+              this.$message.error("系统错误");
+              this.loading = false;
+            });
         } else {
           console.log("err submit!");
           return false;

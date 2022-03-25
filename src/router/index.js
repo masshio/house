@@ -107,6 +107,11 @@ const routes = [
         name: 'Statistics',
         component: () => import('@/views/admin/childComps/Statistics')
       },
+      {
+        path: 'manageNotice',
+        name: 'ManageNotice',
+        component: () => import('@/views/admin/childComps/ManageNotice')
+      },
     ]
   }
 ]

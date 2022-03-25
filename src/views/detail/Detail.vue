@@ -57,9 +57,9 @@
     <div class="detail middle">
       <div class="card">
         <h3 class="title">房屋详情</h3>
-        <el-descriptions :contentStyle="style" :labelStyle="style">
+        <el-descriptions :contentStyle="style" :labelStyle="{ width: 45 + 'px', fontSize: 16 + 'px'}">
           <el-descriptions-item label="面积"
-            >{{ house.hsquare }}m<sup>2</sup></el-descriptions-item
+            >{{ house.hsquare }}㎡</el-descriptions-item
           >
           <el-descriptions-item label="楼层"
             >{{ storey }}/{{ house.tfloor }}层</el-descriptions-item
@@ -114,7 +114,7 @@ export default {
         uemail: "",
         uavatar: "avatar.png",
       },
-      style: { fontSize: 18 + "px" },
+      style: { fontSize: 16 + "px" },
       flag: true,
     };
   },
@@ -240,6 +240,8 @@ export default {
   .card {
     border-bottom: 1px solid rgb(243, 243, 243);
     border-radius: 2px;
+    word-wrap: break-word;
+    word-break: break-all;
     padding: 10px;
     margin-bottom: 10px;
     .title {

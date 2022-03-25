@@ -13,6 +13,26 @@
           <el-button type="text" @click="handleClick(scope.row)"
             >编辑</el-button
           >
+          <el-divider
+            direction="vertical"
+            v-if="scope.row.status == 1"
+          ></el-divider>
+          <el-button
+            type="text"
+            v-if="scope.row.status == 1"
+            @click="handleBlock(scope.row)"
+            >拉黑</el-button
+          >
+          <el-divider
+            direction="vertical"
+            v-if="scope.row.status == 0"
+          ></el-divider>
+          <el-button
+            type="text"
+            v-if="scope.row.status == 0"
+            @click="handleUnseal(scope.row)"
+            >解封</el-button
+          >
           <el-divider direction="vertical"></el-divider>
           <el-button type="text" @click="handleDelete(scope.row)"
             >删除</el-button
@@ -37,39 +57,23 @@
         <el-form-item label="id" :label-width="formLabelWidth">
           <el-input v-model="form.uid" disabled autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item
-          label="用户名"
-          :label-width="formLabelWidth"
-          prop="uname"
-        >
-          <el-input
-            v-model="form.uname"
-            disabled
-            autocomplete="off"
-          ></el-input>
+        <el-form-item label="用户名" :label-width="formLabelWidth" prop="uname">
+          <el-input v-model="form.uname" disabled autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item
-          label="年龄"
-          :label-width="formLabelWidth"
-          prop="uage"
-        >
+        <el-form-item label="年龄" :label-width="formLabelWidth" prop="uage">
           <el-input type="number" v-model="form.uage" autocomplete="off">
           </el-input>
         </el-form-item>
         <el-form-item
-          label="邮箱"
+          label="性别"
           :label-width="formLabelWidth"
-          prop="uemail"
-          :rules="[
-            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-            {
-              type: 'email',
-              message: '请输入正确的邮箱地址',
-              trigger: ['blur', 'change'],
-            },
-          ]"
+          prop="usex"
+          required
         >
-          <el-input v-model="form.uemail" autocomplete="off"> </el-input>
+          <el-radio-group v-model="form.usex">
+            <el-radio label="男">男</el-radio>
+            <el-radio label="女">女</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item
           label="昵称"
@@ -89,11 +93,19 @@
         >
           <el-input v-model="form.uphone" autocomplete="off"> </el-input>
         </el-form-item>
-        <el-form-item label="性别" :label-width="formLabelWidth" prop="usex">
-          <el-radio-group v-model="form.usex">
-            <el-radio label="男">男</el-radio>
-            <el-radio label="女">女</el-radio>
-          </el-radio-group>
+        <el-form-item
+          label="邮箱"
+          :label-width="formLabelWidth"
+          prop="uemail"
+          :rules="[
+            {
+              type: 'email',
+              message: '请输入正确的邮箱地址',
+              trigger: ['blur', 'change'],
+            },
+          ]"
+        >
+          <el-input v-model="form.uemail" autocomplete="off"> </el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -105,7 +117,7 @@
 </template>
 
 <script>
-import { getUser, deleteUser, updateUser } from "@/api/user";
+import { getUser, deleteUser, updateUser, block } from "@/api/user";
 export default {
   data() {
     var over = (rule, value, callback) => {
@@ -125,7 +137,7 @@ export default {
         uage: [
           { required: true, message: "请输入面积", trigger: "blur" },
           { validator: over },
-        ]
+        ],
       },
       formLabelWidth: "120px",
       isshow: false,
@@ -174,6 +186,30 @@ export default {
             message: "已取消删除",
           });
         });
+    },
+    handleBlock(row) {
+      block({
+        status: 0,
+        id: row.uid,
+      }).then((res) => {
+        this.getTable();
+        this.$message({
+          type: "success",
+          message: "拉黑成功!",
+        });
+      });
+    },
+    handleUnseal(row){
+      block({
+        status: 1,
+        id: row.uid,
+      }).then((res) => {
+        this.getTable();
+        this.$message({
+          type: "success",
+          message: "解封成功!",
+        });
+      });
     },
     handleConfirm() {
       this.$refs.form.validate((valid) => {

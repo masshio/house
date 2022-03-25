@@ -95,8 +95,8 @@ export default {
 </script>
 <style scoped>
 .home {
-  min-width: 1450px;
   position: relative;
+  min-width: 1150px;
 }
 .home-list {
   width: 1150px;

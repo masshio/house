@@ -372,17 +372,15 @@ export default {
 </script>
 <style lang="scss">
 #own-table {
-  width: 60vw;
-  margin-left: 25vw;
+  width: 1000px;
+  margin: 40px auto;
   overflow: hidden;
-  margin-top: 100px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 10px;
 }
 .pagination {
-  width: 60vw;
-  margin: 20px 20vw;
+  margin: 20px;
   display: flex;
   justify-content: center;
 }

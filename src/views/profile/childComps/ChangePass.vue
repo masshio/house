@@ -91,10 +91,9 @@ export default {
 #change-form {
   width: 600px;
   position: relative;
-  margin: auto;
+  margin: 40px auto;
   left: 0;
   right: 0;
-  margin-top: 100px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 10px;

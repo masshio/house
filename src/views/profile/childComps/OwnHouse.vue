@@ -330,9 +330,9 @@ export default {
           url: "http://localhost:3000/" + item,
         };
       });
-      this.dialogFormVisible = true;
       this.picList = [...row.hpic];
       this.hideUpload = row.hpic.length >= 8;
+      this.dialogFormVisible = true;
     },
     handleDelete(row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
@@ -387,17 +387,15 @@ export default {
 </script>
 <style lang="scss">
 #own-table {
-  width: 60vw;
-  margin-left: 25vw;
+  width: 1000px;
+  margin: 40px auto;
   overflow: hidden;
-  margin-top: 100px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 10px;
 }
 .pagination {
-  width: 60vw;
-  margin: 20px 20vw;
+  margin: 20px;
   display: flex;
   justify-content: center;
 }
@@ -422,9 +420,4 @@ export default {
 .hide .el-upload--picture-card {
   display: none;
 }
-// .el-upload {
-//   width: 146px;
-//   height: 146px;
-//   border: 1px dashed #eee;
-// }
 </style>
