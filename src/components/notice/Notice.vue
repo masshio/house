@@ -68,6 +68,7 @@ export default {
   position: absolute;
   top: 100px;
   right: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 .f-notice {
   width: 250px;

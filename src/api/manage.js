@@ -35,6 +35,16 @@ export function userAge(parameter) {
         }
     })
 }
+export function searchName(parameter) {
+    return request({
+        url: '/user/searchName',
+        method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+}
 export function passExamine(parameter) {
     return request({
         url: '/house/passExamine',

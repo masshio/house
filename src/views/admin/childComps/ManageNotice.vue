@@ -6,7 +6,7 @@
     <el-table :data="tableDate" stripe>
       <el-table-column prop="id" label="id"></el-table-column>
       <el-table-column prop="title" label="标题"> </el-table-column>
-      <el-table-column prop="content" label="内容"> </el-table-column>
+      <el-table-column prop="content" label="内容" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleClick(scope.row)"

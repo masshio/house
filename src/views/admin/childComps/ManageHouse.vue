@@ -1,9 +1,23 @@
 <template>
   <div id="table">
+    <el-row class="table-operator" :gutter="20">
+      <el-col :span="6">
+        <el-input prefix-icon="el-icon-search" placeholder="输入地址" v-model="inpAddr" @keyup.enter.native="search"></el-input>
+      </el-col>
+      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+    </el-row>
     <el-table :data="tableDate" stripe>
       <el-table-column prop="hid" label="id"></el-table-column>
-      <el-table-column prop="hadd" label="地址" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="hdes" label="描述" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column
+        prop="hadd"
+        label="地址"
+        :show-overflow-tooltip="true"
+      ></el-table-column>
+      <el-table-column
+        prop="hdes"
+        label="描述"
+        :show-overflow-tooltip="true"
+      ></el-table-column>
       <el-table-column prop="hprice" label="月租"> </el-table-column>
       <el-table-column prop="hsquare" label="面积/㎡"> </el-table-column>
       <el-table-column prop="estate" label="小区"> </el-table-column>
@@ -189,7 +203,7 @@
 </template>
 
 <script>
-import { deleteHouses, updateHouses, getHouses } from "@/api/house";
+import { deleteHouses, updateHouses, getHouses, searchAdd } from "@/api/house";
 export default {
   data() {
     var over = (rule, value, callback) => {
@@ -253,6 +267,7 @@ export default {
       isshow: false,
       total: 0,
       picList: [],
+      inpAddr: ""
     };
   },
   created() {
@@ -309,20 +324,22 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.form.hpic = this.picList;
-          updateHouses(this.form).then((res) => {
-            this.$message({
+          updateHouses(this.form)
+            .then((res) => {
+              this.$message({
                 type: "success",
                 message: "修改成功",
               });
-            this.dialogFormVisible = false;
-            this.getTable();
-            this.fileList = [];
-          }).catch(err => {
-            this.$message({
+              this.dialogFormVisible = false;
+              this.getTable();
+              this.fileList = [];
+            })
+            .catch((err) => {
+              this.$message({
                 type: "error",
                 message: "修改失败",
               });
-          });
+            });
         }
       });
     },
@@ -355,6 +372,19 @@ export default {
       this.fileList = [];
       this.hideUpload = false;
     },
+    search() {
+      this.page = 1;
+      searchAdd({
+        addr: this.inpAddr,
+        page: this.page,
+        size: 10,
+      }).then((res) => {
+        this.tableDate = res.data.result;
+        this.total = res.total;
+        window.scrollTo(0, 0);
+        this.isshow = true;
+      });
+    }
   },
 };
 </script>
@@ -368,5 +398,9 @@ export default {
   margin-top: 30px;
   display: flex;
   justify-content: center;
+}
+.table-operator {
+  margin-bottom: 18px;
+  text-align: left;
 }
 </style>

@@ -1,5 +1,11 @@
 <template>
   <div id="table">
+    <el-row class="table-operator" :gutter="20">
+      <el-col :span="6">
+        <el-input prefix-icon="el-icon-search" placeholder="输入用户名" v-model="inpName" @keyup.enter.native="searchN"></el-input>
+      </el-col>
+      <el-button type="primary" icon="el-icon-search" @click="searchN">搜索</el-button>
+    </el-row>
     <el-table :data="tableDate" stripe>
       <el-table-column prop="uid" label="用户id"> </el-table-column>
       <el-table-column prop="uname" label="用户名"> </el-table-column>
@@ -118,6 +124,7 @@
 
 <script>
 import { getUser, deleteUser, updateUser, block } from "@/api/user";
+import {searchName} from '@/api/manage'
 export default {
   data() {
     var over = (rule, value, callback) => {
@@ -142,6 +149,7 @@ export default {
       formLabelWidth: "120px",
       isshow: false,
       total: 0,
+      inpName: ""
     };
   },
   computed: {},
@@ -221,6 +229,19 @@ export default {
         }
       });
     },
+    searchN() {
+      this.page = 1;
+      searchName({
+        name: this.inpName,
+        page: this.page,
+        size: 10
+      }).then((res) => {
+        this.tableDate = res.data.result;
+        this.total = res.total;
+        window.scrollTo(0, 0);
+        this.isshow = true;
+      });
+    }
   },
 };
 </script>
@@ -234,5 +255,9 @@ export default {
   margin-top: 30px;
   display: flex;
   justify-content: center;
+}
+.table-operator {
+  margin-bottom: 18px;
+  text-align: left;
 }
 </style>

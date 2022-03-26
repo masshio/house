@@ -33,16 +33,14 @@
             placeholder="请二次输入密码"
           ></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            @click="handleRegister"
-            :loading="loading"
-            class="el-btn"
-          >
-            注册账号
-          </el-button>
-        </el-form-item>
+        <el-button
+          type="primary"
+          @click="handleRegister"
+          :loading="loading"
+          class="el-btn"
+        >
+          注册账号
+        </el-button>
       </el-form>
     </div>
   </div>
@@ -124,15 +122,16 @@ export default {
 </script>
 <style scoped lang="scss">
 #main {
-  background: #f0f2f5 url('../../assets/background.svg') no-repeat 50%;
+  background: #f0f2f5 url("../../assets/background.svg") no-repeat 50%;
+  text-align: center;
   height: 100vh;
   overflow: hidden;
-  text-align: center;
   h1 {
     margin-top: 100px;
   }
   .wrap {
-    width: 30vw;
+    width: 500px;
+    height: 300px;
     position: absolute;
     left: 0;
     right: 0;

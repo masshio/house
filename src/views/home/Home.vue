@@ -97,13 +97,14 @@ export default {
 .home {
   position: relative;
   min-width: 1150px;
+  /* background: rgba(0, 0, 0, .01); */
 }
 .home-list {
   width: 1150px;
   overflow: hidden;
   /* position: relative; */
-  margin: 0 auto;
-  /* background: rgba(0, 0, 0, .04); */
+  margin: 10px auto;
+  background: #fff;
 }
 .pagination {
   width: 850px;
@@ -114,7 +115,7 @@ export default {
 .input-addr {
   width: 850px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 20px;
   position: relative;
   line-height: 40px;
   padding-left: 30px;

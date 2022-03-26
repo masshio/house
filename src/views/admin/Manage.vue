@@ -1,25 +1,20 @@
 <template>
   <div>
     <el-container style="height: 100vh">
-      <el-header class="header" style="text-align: right; font-size: 16px">
-        <!-- <el-avatar icon="el-icon-user-solid"></el-avatar> -->
-        <el-dropdown @command="handleCommand">
-          <i
-            class="el-icon-setting"
-            style="margin-right: 15px;"
-          ></i>
+      <el-header>
+        <el-avatar icon="el-icon-user-solid" style=""></el-avatar>
+        <!-- <el-dropdown @command="handleCommand">
+        <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
-        <span>admin</span>
+        </el-dropdown> -->
+        <span style="margin:0 15px">admin</span>
+        <button @click="handleCommand">退出登录</button>
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <el-menu
-            :default-active="$route.name"
-            router
-          >
+          <el-menu :default-active="$route.name" router>
             <!-- active-text-color="#ffd04b" -->
             <!-- background-color="#545c64"
             text-color="#fff" -->
@@ -60,8 +55,14 @@
 export default {
   methods: {
     handleCommand() {
-      this.$store.commit("LOGOUT");
-      this.$router.replace("/");
+      this.$confirm("确定要退出吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        this.$store.commit("LOGOUT");
+        this.$router.push('/login');
+      });
     },
   },
 };
@@ -72,7 +73,6 @@ export default {
   // color: #333;
   // color: #fff;
   // background-color: #545c64;
-  text-align: center;
   line-height: 60px;
   display: flex;
   align-items: center;
@@ -113,4 +113,9 @@ body > .el-container {
   margin-bottom: 40px;
 }
 
+button {
+  border:none;
+  background: #fff;
+  cursor: pointer;
+}
 </style>
