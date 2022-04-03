@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="notice"
-    ref="notice"
-  >
+  <div>
+  <nav-bar></nav-bar>
     <!-- <el-table :data="tableData" style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -15,7 +13,6 @@
       </el-table-column>
       <el-table-column prop="title"> </el-table-column>
     </el-table> -->
-
     <el-collapse v-model="activeName" accordion>
       <el-collapse-item
         v-for="item in tableData"
@@ -33,21 +30,19 @@
 
 <script>
 import { getNotice } from "@/api/notice";
+import NavBar from "@/components/navbar/NavBar.vue";
 export default {
+  name: 'Notice',
   data() {
     return {
       tableData: [],
       activeName: "1",
       flag: true,
       scrollEven: null,
-      // func: () => {
-      //   if (window.scrollY > this.$refs.notice.offsetTop) {
-      //     this.flag = false;
-      //   } else {
-      //     this.flag = true;
-      //   }
-      // },
     };
+  },
+  components: {
+    NavBar
   },
   mounted() {
     getNotice({
@@ -56,26 +51,9 @@ export default {
     }).then((res) => {
       this.tableData = res.data.result;
     });
-    // window.addEventListener("scroll", this.func);
-  },
-  destroyed() {
-    // window.removeEventListener("scroll", this.func);
   },
 };
 </script>
 <style scoped lang="scss">
-.notice {
-  width: 250px;
-  // position: absolute;
-  // top: 100px;
-  // right: 25px;
-  float: right;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  margin-top: 20px;
-}
-// .f-notice {
-//   width: 250px;
-//   position: fixed;
-//   right: 25px;
-// }
+// 
 </style>

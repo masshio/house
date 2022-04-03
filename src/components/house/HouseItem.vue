@@ -5,12 +5,14 @@
     <div class="title" @click="toDetail">
       {{house.mode}} | {{house.estate}} {{house.htype}}
     </div>
-    <div class="addr font-14">
+    <div class="addr">
       {{house.hadd}}
     </div>
     <div class="font-14">
-      <span>{{house.hsquare}}m<sup>2</sup></span> / 
-      <span>{{house.htype}}</span>
+      <span>{{house.estate}}</span><i>/</i>
+      <span>{{house.hsquare}}m<sup>2</sup></span><i>/</i>
+      <span>{{house.htype}}</span><i>/</i>
+      <span>{{house.orientation}}</span>
     </div>
     <div class="price">{{house.hprice}} <span>元/月</span> </div>
   </div>
@@ -36,7 +38,7 @@ export default {
 </script>
 <style scoped lang="scss">
 #item-wrap {
-  width: 980px;
+  width: 780px;
   height: 110px;
   // margin: 20px auto;
   margin-top: 20px;
@@ -44,6 +46,7 @@ export default {
   border-radius: 10px;
   transition: 0.5s;
   perspective: 500px;
+  float: left;
   &:hover {
     background: #eee;
     // transform: scale(1.05);
@@ -57,9 +60,16 @@ export default {
   }
   .font-14 {
     font-size: 14px;
+    color: #6d6d73;
+    font-weight: 700;
+    i {
+      margin: 0 10px
+    }
   }
   .title {
     font-size: 20px;
+    font-weight: 700;
+    color: #101d37;
     cursor: pointer;
     display: inline-block;
     width: 300px;
@@ -73,6 +83,8 @@ export default {
   .addr {
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
   }
   .price {
     height: 30px;

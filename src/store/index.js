@@ -7,7 +7,8 @@ const store = new Vuex.Store({
     token: '',
     name: '',
     id: '',
-    isAdmin: ''
+    isAdmin: '',
+    uavatar: '',
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -16,8 +17,10 @@ const store = new Vuex.Store({
     SET_NAME(state, name) {
       state.name = name;
     },
-    SET_ID(state, id) {
-      state.id = id;
+    SET_ID(state, {uid, uavatar, rname}) {
+      state.id = uid;
+      state.uavatar = uavatar;
+      state.rname = rname;
     },
     SET_ISADMIN(state, flag) {
       state.isAdmin = flag;
@@ -40,7 +43,9 @@ const store = new Vuex.Store({
         token: val.token,
         name: val.name,
         id: val.id,
-        isAdmin: val.isAdmin
+        isAdmin: val.isAdmin,
+        uavatar: val.uavatar,
+        rname: val.rname
       }
     }
 })]

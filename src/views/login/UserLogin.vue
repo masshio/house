@@ -70,7 +70,7 @@ export default {
               if (res.code >= 200) {
                 this.$store.commit("SET_TOKEN", res.token);
                 this.$store.commit("SET_NAME", this.form.name);
-                this.$store.commit("SET_ID", res.data);
+                this.$store.commit("SET_ID", res.data[0]);
                 this.$router.push("/home");
               } else {
                 this.$message.error(res.message);

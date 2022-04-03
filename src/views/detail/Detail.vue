@@ -83,6 +83,7 @@
         <span>{{ house.hdes }}</span>
       </div>
     </div>
+    <div ref="line" style="margin: 20px auto; height: 300px; width: 1150px;"></div>
     <div class="middle">
       <ul class="house-pic-list">
         <li v-for="item in house.hpic" :key="item">
@@ -116,6 +117,7 @@ export default {
       },
       style: { fontSize: 16 + "px" },
       flag: true,
+      hdate: {}
     };
   },
   computed: {
@@ -128,20 +130,19 @@ export default {
         : "http://localhost:3000/" + this.house.hpic;
     },
     storey() {
-      if (this.house.floor < 5) {
+      if (this.house.floor < this.house.tfloor / 3) {
         return "低层";
-      } else if (this.house.floor < 10) {
+      } else if (this.house.floor < 2 * this.house.tfloor / 3) {
         return "中层";
       } else {
         return "高层";
       }
     },
   },
-  watch: {},
   components: {
     NavBar,
   },
-  created() {
+  mounted() {
     getHousesById({
       id: this.id,
     })
@@ -152,10 +153,89 @@ export default {
         });
       })
       .then((res) => {
+        this.drawLine();
         this.user = res.data;
       });
+    window.scrollTo(0,0);
   },
-  methods: {},
+  methods: {
+    drawLine() {
+      this.priceLine = this.$echarts.init(this.$refs.line);
+      let bdate = +new Date(this.house.hdate).getTime(); // 发布日期
+      let hdate = this.house['his_price'];  // 日期:价格 对象
+      let oneDay = 24 * 3600 * 1000;
+      let base = +Date.now();
+      let date = [];
+      let data = [];
+      // 设置data和date数组
+      while (bdate < base) {
+        let atDate = new Date(bdate);
+        let temp = [atDate.getFullYear(), atDate.getMonth() + 1, atDate.getDate()].join("/");
+        date.push(temp);
+        if(hdate[temp]) {
+          data.push(hdate[temp])
+        } else {
+          data.push(data[data.length - 1])
+        }
+        bdate += oneDay;
+      }
+      
+      let priceOption = {
+        tooltip: {
+          trigger: "axis",
+          position: function (pt) {
+            return [pt[0], "10%"];
+          },
+        },
+        title: {
+          left: "center",
+          text: "历史价格",
+        },
+        toolbox: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: "none",
+            },
+            restore: {},
+            saveAsImage: {},
+          },
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: date,
+        },
+        yAxis: {
+          type: "value",
+          boundaryGap: [0, "100%"],
+        },
+        dataZoom: [
+          {
+            type: "inside",
+            start: 0,
+            end: 10,
+          },
+          {
+            start: 0,
+            end: 10,
+          },
+        ],
+        series: [
+          {
+            name: "价格",
+            type: "line",
+            symbol: "none",
+            sampling: "lttb",
+            itemStyle: {
+              color: "rgb(255, 70, 131)",
+            },
+            data: data,
+          },
+        ],
+      };
+      this.priceLine.setOption(priceOption);
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -251,12 +331,15 @@ export default {
 }
 
 .house-pic-list {
-  width: 706px;
+  width: 1104px;
   list-style: none;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  overflow: hidden;
+  // display: flex;
+  // justify-content: space-between;
+  // flex-wrap: wrap;
   .pic {
+    float: left;
+    margin-right: 10px;
     width: 348px;
     height: 261px;
     margin-bottom: 10px;

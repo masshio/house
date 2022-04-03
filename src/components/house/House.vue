@@ -21,8 +21,4 @@ export default {
 
 </script>
 <style scoped>
-.house-list {
-    /* background: #fff; */
-
-}
 </style>
