@@ -31,7 +31,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog center title="修改公告" :visible="dialogFormVisible">
+    <el-dialog center title="修改公告" :visible="dialogFormVisible" @close="closeDialog">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item label="标题：" prop="title" :label-width="formLabelWidth">
           <el-input v-model="form.title" clearable placeholder="请输入标题"> </el-input>
@@ -194,6 +194,9 @@ export default {
             });
         }
       });
+    },
+    closeDialog() {
+      this.dialogFormVisible = false;
     }
   },
 };

@@ -2,9 +2,16 @@
   <div id="table">
     <el-row class="table-operator" :gutter="20">
       <el-col :span="6">
-        <el-input prefix-icon="el-icon-search" placeholder="输入地址" v-model="inpAddr" @keyup.enter.native="search"></el-input>
+        <el-input
+          prefix-icon="el-icon-search"
+          placeholder="输入地址或小区名"
+          v-model="inpAddr"
+          @keyup.enter.native="search"
+        ></el-input>
       </el-col>
-      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="search"
+        >搜索</el-button
+      >
     </el-row>
     <el-table :data="tableDate" stripe>
       <el-table-column prop="hid" label="id"></el-table-column>
@@ -48,7 +55,12 @@
       </el-pagination>
     </div>
 
-    <el-dialog center title="房屋信息" :visible="dialogFormVisible">
+    <el-dialog
+      center
+      title="房屋信息"
+      :visible="dialogFormVisible"
+      @close="closeDialog"
+    >
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item
           label="租赁方式："
@@ -267,7 +279,7 @@ export default {
       isshow: false,
       total: 0,
       picList: [],
-      inpAddr: ""
+      inpAddr: "",
     };
   },
   created() {
@@ -384,7 +396,10 @@ export default {
         window.scrollTo(0, 0);
         this.isshow = true;
       });
-    }
+    },
+    closeDialog() {
+      this.dialogFormVisible = false;
+    },
   },
 };
 </script>

@@ -387,7 +387,6 @@ export default {
 </script>
 <style lang="scss">
 #own-table {
-  width: 1000px;
   margin: 40px auto;
   overflow: hidden;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

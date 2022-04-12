@@ -88,7 +88,6 @@ export default {
   },
   created() {
     this.search();
-    console.log('hhhhh');
   },
   methods: {
     change() {

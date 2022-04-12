@@ -21,4 +21,9 @@ export default {
 
 </script>
 <style scoped>
+.house-list {
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
 </style>

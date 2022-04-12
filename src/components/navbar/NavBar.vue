@@ -40,7 +40,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <!-- <button @click="logout" class="logout-btn">退出登录</button> -->
-          <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

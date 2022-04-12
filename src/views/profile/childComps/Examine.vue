@@ -181,7 +181,7 @@
             <!-- :before-upload="handleUpload" -->
             <i class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip">
-              只能上传一张jpg/png文件，且不超过500kb
+              只能上传八张jpg/png文件，且不超过8M
             </div>
           </el-upload>
         </el-form-item>

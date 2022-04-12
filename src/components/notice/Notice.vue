@@ -16,13 +16,15 @@
       <el-table-column prop="title"> </el-table-column>
     </el-table> -->
 
-    <el-collapse v-model="activeName" accordion>
+    <el-collapse v-model="activeName">
       <el-collapse-item
         v-for="item in tableData"
         :key="item.id"
-        :title="item.title"
         :name="item.id"
       >
+        <template slot="title">
+          {{item.title}}&nbsp;<i class="header-icon el-icon-info"></i>
+        </template>
         <div>
           {{ item.content }}
         </div>
@@ -72,6 +74,8 @@ export default {
   float: right;
   border: 1px solid rgba(0, 0, 0, 0.04);
   margin-top: 20px;
+  position: sticky;
+  top: 10px;
 }
 // .f-notice {
 //   width: 250px;

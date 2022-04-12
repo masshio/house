@@ -2,7 +2,7 @@
   <div class="house-body">
     <nav-bar></nav-bar>
     <div class="house-form">
-      <h3>发布房屋</h3>
+      <h3>发布房源</h3>
       <el-divider></el-divider>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="租赁方式：" prop="mode">
@@ -15,7 +15,7 @@
           <el-input v-model.number="form.estate" clearable> </el-input>
         </el-form-item>
         <el-form-item label="楼层信息：" required>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item prop="floor">
               <el-input v-model.number="form.floor" type="number">
                 <template slot="prepend">第</template>
@@ -24,7 +24,7 @@
             </el-form-item>
           </el-col>
           <el-col class="line" :span="2">&nbsp;</el-col>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item prop="tfloor">
               <el-input v-model.number="form.tfloor" type="number">
                 <template slot="prepend">共</template>
@@ -104,6 +104,7 @@
             :headers="headers"
             list-type="picture-card"
             :limit="limit"
+            :before-upload="handleUpload"
             :on-remove="handleRemove"
             :on-success="handleSuccess"
             :on-change="handleChange"
@@ -112,7 +113,7 @@
           >
             <i class="el-icon-plus"></i>
             <div class="el-upload__tip" slot="tip">
-              只能上传一张jpg/png文件，且不超过500kb
+              可上传八张jpg/png文件，每张图片大小不超过2M
             </div>
           </el-upload>
         </el-form-item>
@@ -218,6 +219,18 @@ export default {
         }
       });
     },
+    handleUpload(file) {
+      const isJPG = file.type === "image/jpeg" || "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传图片只能是 jpg/png 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
     handleChange(file, fileList) {
       this.hideUpload = fileList.length >= 8;
     },
@@ -234,9 +247,9 @@ export default {
 </script>
 <style>
 .house-form {
-  width: 40vw;
+  width: 650px;
   position: relative;
-  margin: 70px auto;
+  margin: 50px auto;
   left: 0;
   right: 0;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

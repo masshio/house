@@ -77,7 +77,7 @@ export default {
               }
             })
             .catch((err) => {
-              this.$message.error("系统错误");
+              this.$message.error(err);
               this.loading = false;
             });
         } else {
