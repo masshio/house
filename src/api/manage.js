@@ -23,6 +23,28 @@ export function housePrice(parameter) {
         }
     })
 }
+// 房屋面积分析
+export function houseSquare(parameter) {
+    return request({
+        url: '/house/houseSquare',
+        method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+}
+// 房屋面积分析
+export function housePay(parameter) {
+    return request({
+        url: '/house/housePay',
+        method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+}
 
 // 用户年龄层
 export function userAge(parameter) {
