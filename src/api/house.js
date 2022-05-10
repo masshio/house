@@ -11,7 +11,6 @@ export function getHouses(parameter) {
         }
     })
 }
-
 // 首页搜索地址
 export function searchAdd(parameter) {
     return request({
@@ -23,7 +22,6 @@ export function searchAdd(parameter) {
         }
     })
 }
-
 // 通过id获取房屋信息
 export function getHousesById(parameter) {
     return request({
@@ -36,6 +34,16 @@ export function getHousesById(parameter) {
     })
 }
 
+export function getHousesDetail(parameter) {
+    return request({
+        url: '/house/getHousesDetail',
+        method: 'get',
+        params: parameter,
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+}
 // 获取用户信息
 export function getMessageById(parameter) {
     return request({

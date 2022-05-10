@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
     <div class="wrap middle">
       <div class="cover">
         <el-carousel indicator-position="outside" height="338px">
@@ -57,7 +56,10 @@
     <div class="detail middle">
       <div class="card">
         <h3 class="title">房屋详情</h3>
-        <el-descriptions :contentStyle="style" :labelStyle="{ width: 45 + 'px', fontSize: 16 + 'px'}">
+        <el-descriptions
+          :contentStyle="style"
+          :labelStyle="{ width: 45 + 'px', fontSize: 16 + 'px' }"
+        >
           <el-descriptions-item label="面积"
             >{{ house.hsquare }}㎡</el-descriptions-item
           >
@@ -83,7 +85,6 @@
         <span>{{ house.hdes }}</span>
       </div>
     </div>
-    <div ref="line" style="margin: 20px auto; height: 300px; width: 1150px;"></div>
     <div class="middle">
       <ul class="house-pic-list">
         <li v-for="item in house.hpic" :key="item">
@@ -95,57 +96,13 @@
 </template>
 
 <script>
-import {DetailMixin} from '@/utils/mixin'
-import NavBar from "@/components/navbar/NavBar.vue";
-import { getHousesById, getMessageById } from "@/api/house";
+import { DetailMixin } from "@/utils/mixin";
+import { getHousesDetail, getMessageById } from "@/api/house";
 export default {
-  name: "Detail",
-  data() {
-    return {
-      house: {
-        hprice: "",
-        htype: "",
-        hsquare: "",
-        hdes: "",
-        hadd: "",
-        hpic: "",
-      },
-      user: {
-        rname: "",
-        uphone: "",
-        uemail: "",
-        uavatar: "avatar.png",
-      },
-      style: { fontSize: 16 + "px" },
-      flag: true,
-      hdate: {}
-    };
-  },
+  name: "HouseDetail",
   mixins: [DetailMixin],
-  computed: {
-    id() {
-      return this.$route.params.id;
-    },
-    imgUrl() {
-      return this.house.hpic === ""
-        ? ""
-        : "http://localhost:3000/" + this.house.hpic;
-    },
-    storey() {
-      if (this.house.floor < this.house.tfloor / 3) {
-        return "低层";
-      } else if (this.house.floor < 2 * this.house.tfloor / 3) {
-        return "中层";
-      } else {
-        return "高层";
-      }
-    },
-  },
-  components: {
-    NavBar,
-  },
   mounted() {
-    getHousesById({
+    getHousesDetail({
       id: this.id,
     })
       .then((res) => {
@@ -155,88 +112,9 @@ export default {
         });
       })
       .then((res) => {
-        this.drawLine();
         this.user = res.data;
       });
-    window.scrollTo(0,0);
-  },
-  methods: {
-    drawLine() {
-      this.priceLine = this.$echarts.init(this.$refs.line);
-      let bdate = +new Date(this.house.hdate).getTime(); // 发布日期
-      let hdate = this.house['his_price'];  // 日期:价格 对象
-      let oneDay = 24 * 3600 * 1000;
-      let base = +Date.now();
-      let date = [];
-      let data = [];
-      // 设置data和date数组
-      while (bdate < base) {
-        let atDate = new Date(bdate);
-        let temp = [atDate.getFullYear(), atDate.getMonth() + 1, atDate.getDate()].join("/");
-        date.push(temp);
-        if(hdate[temp]) {
-          data.push(hdate[temp])
-        } else {
-          data.push(data[data.length - 1])
-        }
-        bdate += oneDay;
-      }
-      
-      let priceOption = {
-        tooltip: {
-          trigger: "axis",
-          position: function (pt) {
-            return [pt[0], "10%"];
-          },
-        },
-        title: {
-          left: "center",
-          text: "历史价格",
-        },
-        toolbox: {
-          feature: {
-            dataZoom: {
-              yAxisIndex: "none",
-            },
-            restore: {},
-            saveAsImage: {},
-          },
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: date,
-        },
-        yAxis: {
-          type: "value",
-          boundaryGap: [0, "100%"],
-        },
-        dataZoom: [
-          {
-            type: "inside",
-            start: 0,
-            end: 10,
-          },
-          {
-            start: 0,
-            end: 10,
-          },
-        ],
-        series: [
-          {
-            name: "价格",
-            type: "line",
-            symbol: "none",
-            sampling: "lttb",
-            itemStyle: {
-              color: "rgb(255, 70, 131)",
-            },
-            data: data,
-          },
-        ],
-      };
-      this.priceLine.setOption(priceOption);
-    },
+    window.scrollTo(0, 0);
   },
 };
 </script>

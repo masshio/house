@@ -139,7 +139,7 @@ export default {
       })
     },
     toDetail(row) {
-      this.$router.push('/detail/'+ row.hid)
+      this.$router.push('/HouseDetail/'+ row.hid)
     },
     handleCancel() {
       this.dialogFormVisible = false;
