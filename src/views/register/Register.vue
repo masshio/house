@@ -33,6 +33,13 @@
             placeholder="请二次输入密码"
           ></el-input>
         </el-form-item>
+        <el-form-item label="电话号码：" prop="phone">
+          <el-input
+            v-model="form.phone"
+            prefix-icon="el-icon-phone"
+            placeholder="请输入电话号码"
+          ></el-input>
+        </el-form-item>
         <el-button
           type="primary"
           @click="handleRegister"
@@ -78,16 +85,26 @@ export default {
         callback();
       }
     };
+    var validatePhone = (rule, value, callback) => {
+      let patt = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+      if (!patt.test(+value)) {
+        callback(new Error("请输入正确的手机号码"));
+      } else {
+        callback();
+      }
+    };
     return {
       form: {
         name: "",
         pwd: "",
         checkPass: "",
+        phone: ""
       },
       rules: {
         name: [{ validator: validateName, trigger: "blur" }],
         pwd: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        phone:[{validator: validatePhone, trigger: "blur"}]
       },
       loading: false,
       jumpLoading: false,
@@ -131,14 +148,14 @@ export default {
   }
   .wrap {
     width: 500px;
-    height: 300px;
+    height: 370px;
     position: absolute;
     left: 0;
     right: 0;
     top: 200px;
     margin: auto;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     padding-bottom: 0;
   }

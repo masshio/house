@@ -1,6 +1,6 @@
 <template>
   <div id="own-table">
-    <el-table :data="tableDate" stripe>
+    <el-table :data="tableDate" v-if="isEmpty" stripe>
       <el-table-column
         prop="hadd"
         label="地址"
@@ -40,7 +40,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination" v-show="isshow">
+    <el-empty description="还未发布房屋哦" v-else></el-empty>
+    <div class="pagination" v-show="isshow && isEmpty">
       <el-pagination
         layout="prev, pager, next"
         background
@@ -271,6 +272,7 @@ export default {
       isshow: false,
       total: 0,
       picList: [],
+      isEmpty: false
     };
   },
   computed: {
@@ -290,6 +292,7 @@ export default {
       }).then((res) => {
         this.total = res.total;
         this.tableDate = res.data.result;
+        if(res.total > 0) this.isEmpty = true;
         this.isshow = true;
       });
     },

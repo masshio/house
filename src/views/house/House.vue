@@ -138,6 +138,24 @@ export default {
         callback();
       }
     };
+    var overFloor = (rule, value, callback) => {
+      if (value <= 0) {
+        callback(new Error("数字应大于0"));
+      } else if(value > this.form.tfloor) {
+        callback(new Error("楼层不能大于总楼层"))
+      } else {
+        callback();
+      }
+    };
+    var overFloor2 = (rule, value, callback) => {
+      if (value <= 0) {
+        callback(new Error("数字应大于0"));
+      } else if(value < this.form.floor) {
+        callback(new Error("总楼层不能小于楼层"));
+      } else {
+        callback()
+      }
+    };
     return {
       form: {
         pic: []
@@ -152,11 +170,11 @@ export default {
         mode: [{ required: true, message: "请选择租赁方式", trigger: "blur" }],
         floor: [
           { required: true, message: "请输入楼层", trigger: "blur" },
-          { validator: over },
+          { validator: overFloor },
         ],
         tfloor: [
           { required: true, message: "请输入总楼层", trigger: "blur" },
-          { validator: over },
+          { validator: overFloor2 },
         ],
         estate: [
           { required: true, message: "请输入小区名称", trigger: "blur" },

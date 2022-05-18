@@ -45,7 +45,7 @@
           <el-radio label="女">女</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="电话号码：" prop="uphone">
+      <el-form-item label="电话号码：" prop="uphone" required>
         <el-input v-model="form.uphone" clearable></el-input>
       </el-form-item>
       <el-form-item label="电子邮箱：" prop="uemail">

@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <keep-alive include="Home,Profile">
+  <div v-cloak id="app">
+    <keep-alive include="Home,Profile,House">
       <router-view />
     </keep-alive>
   </div>
@@ -9,6 +9,9 @@
 export default {};
 </script>
 <style>
+[v-cloak] {
+  display: none;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,6 +1,6 @@
 <template>
   <div id="own-table">
-    <el-table :data="tableDate" stripe>
+    <el-table :data="tableDate" v-if="isEmpty" stripe>
       <el-table-column prop="hadd" label="地址" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="hdes" label="描述" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="hprice" label="月租"> </el-table-column>
@@ -40,7 +40,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination" v-show="isshow">
+    <el-empty description="还未发布房屋哦" v-else></el-empty>
+    <div class="pagination" v-show="isshow && isEmpty">
       <el-pagination
         layout="prev, pager, next"
         background
@@ -259,6 +260,7 @@ export default {
         "南北",
       ],
       picList: [],
+      isEmpty: false
     };
   },
   computed: {
@@ -277,6 +279,7 @@ export default {
         size: 5,
       }).then((res) => {
         this.total = res.total;
+        if(res.total > 0) this.isEmpty = true;
         this.tableDate = res.data.result;
         this.isshow = true;
       });
